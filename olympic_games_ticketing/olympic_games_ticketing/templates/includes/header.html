@@ -1,0 +1,31 @@
+{% load static %}
+<header class="header background-primary flex-between">
+  <a href="{% url 'home' %}">
+    <img
+      src="{% static 'images/logo.png' %}"
+      alt="Logo de l'application de réservation de billets des Jeux Olympiques"
+      class="header-logo"
+    />
+  </a>
+  <nav>
+    <ul class="navbar-list">
+      {% if user.is_authenticated %}
+      <li><a href="#" class="text-sm lato-bold link-appearance">Offres</a></li>
+      <li><a href="#" class="text-sm lato-bold link-appearance">Panier</a></li>
+      <li>
+        <a href="#" class="text-sm lato-bold link-appearance">Déconnexion</a>
+      </li>
+      {% else %}
+      <li>
+        <a href="{% url 'signup' %}" class="text-sm lato-bold link-appearance"
+          >Inscription</a
+        >
+      </li>
+      <li>
+        <a href="#" class="text-sm lato-bold link-appearance">Connexion</a>
+      </li>
+      <li><a href="#" class="text-sm lato-bold link-appearance">Offres</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
