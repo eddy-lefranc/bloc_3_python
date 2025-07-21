@@ -1,0 +1,160 @@
+/* === ROOT === */
+
+:root {
+  --bg-primary: #d6c377;
+  --border-style: 1px solid black;
+}
+
+/* === UTILITY CLASSES === */
+
+.align-center {
+  text-align: center;
+}
+
+.background-primary {
+  background-color: var(--bg-primary);
+}
+
+.button {
+  align-items: center;
+  border: 1.5px solid black;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.875rem;
+  padding: 0.625rem;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button img {
+  height: 20px;
+}
+
+.error-message {
+  color: red;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-bordered {
+  border: var(--border-style);
+}
+
+.lato-bold {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.link-appearance {
+  color: black;
+  text-decoration: none;
+}
+
+.paragraph-appearance {
+  hyphens: auto;
+  text-align: justify;
+}
+
+.responsive-image {
+  height: auto;
+  object-fit: cover;
+}
+
+.text-3xl {
+  font-size: 2rem;
+  font-size: clamp(2rem, 1.6rem + 2vw, 4rem);
+}
+
+.text-xl {
+  font-size: 1.75rem;
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 3rem);
+}
+
+.text-lg-xl {
+  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 1.35rem + 0.75vw, 2.25rem);
+}
+
+.text-lg {
+  font-size: 1.25rem;
+  font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.75rem);
+}
+
+.text-base {
+  font-size: 1rem;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  font-size: clamp(0.875rem, 0.825rem + 0.25vw, 1.125rem);
+}
+
+/* === BODY === */
+
+.body {
+  min-height: 100vh;
+}
+
+/* === HEADER === */
+
+.header {
+  align-items: center;
+  border-bottom: 1.5px solid black;
+  margin-bottom: auto;
+  /* Vertical | Horizontal */
+  padding: 0.625rem 1.25rem;
+}
+
+.header-logo {
+  height: 80px;
+  max-width: 100%;
+}
+
+.navbar-list {
+  display: flex;
+  list-style: none;
+}
+
+.navbar-list li {
+  margin-left: 1.25rem;
+}
+
+.navbar-list li:first-child {
+  margin-left: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    /* Vertical | Horizontal */
+    padding: 0.625rem 0rem;
+  }
+
+  .navbar-list {
+    padding: 0;
+  }
+}
