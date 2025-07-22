@@ -3,6 +3,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from accounts.managers import CustomUserManager
 from accounts.validators import name_validator
 
 
@@ -40,6 +41,8 @@ class User(AbstractUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name"]
+
+    objects = CustomUserManager()
 
     def __str__(self):
         """
