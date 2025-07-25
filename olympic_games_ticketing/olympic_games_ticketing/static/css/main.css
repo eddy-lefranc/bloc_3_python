@@ -158,3 +158,27 @@
     padding: 0;
   }
 }
+
+/* === FOOTER === */
+
+.footer {
+  border-top: 1.5px solid black;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: auto;
+  padding-bottom: 0.938rem;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
