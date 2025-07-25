@@ -1,4 +1,5 @@
 {% load static %}
+
 <form method="post" class="form flex-column">
   {% csrf_token %}
   <table class="form-table">
@@ -7,15 +8,26 @@
       <td class="text-sm lato-regular">{{ field.label_tag }}</td>
       <td>{{ field }}</td>
     </tr>
-    {% for error in field.errors %}
+    {% if field.errors %} {% for error in field.errors %}
     <tr>
       <td></td>
       <td class="text-sm error-message lato-bold">{{ error }}</td>
     </tr>
-    {% endfor %} {% endfor %}
+    {% endfor %} {% endif %} {% endfor %}
   </table>
   <button type="submit" class="button text-base lato-bold background-primary">
     <img src="{% static button_icon %}" alt="{{ button_alt }}" />
     {{ button_text }}
   </button>
+  {% if messages %}
+  <div>
+    {% for message in messages %}
+    <p
+      class="lato-bold text-sm {% if error_messages %}error-message{% endif %} form-submission-message"
+    >
+      {{ message }}
+    </p>
+    {% endfor %}
+  </div>
+  {% endif %}
 </form>

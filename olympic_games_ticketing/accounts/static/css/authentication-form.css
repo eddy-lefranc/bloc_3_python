@@ -6,3 +6,7 @@
   /* Horizontal | Vertical */
   border-spacing: 15px 30px;
 }
+
+.form-submission-message {
+  margin: -0.313rem 0 2rem 0;
+}
