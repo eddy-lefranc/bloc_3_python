@@ -1,0 +1,8 @@
+.form {
+  align-items: center;
+}
+
+.form-table {
+  /* Horizontal | Vertical */
+  border-spacing: 15px 30px;
+}
