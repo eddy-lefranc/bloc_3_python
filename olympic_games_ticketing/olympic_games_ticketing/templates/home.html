@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block additional_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock additional_css %} {% block content %}
-<!-- HERO -->
+<!-- HERO SECTION -->
 <section class="flex flex-align-center flex-column hero text-align-center">
   <h1 class="lato lato-bold text-3xl">Billetterie officielle de Paris 2024</h1>
   <h2 class="hero-subtitle lato lato-bold text-2xl">
@@ -20,7 +20,7 @@
   </a>
 </section>
 <div class="main-container">
-  <!-- OLYMPIC GAMES PRESENTATION -->
+  <!-- OLYMPIC GAMES PRESENTATION SECTION -->
   <section>
     <h2 class="lato lato-bold text-lg-xl">Les jeux olympiques</h2>
     <div class="flex flex-between flex-wrap">
@@ -30,7 +30,7 @@
       {% include 'includes/homepage-card.html' with image='images/mia-jiang-SQLz3Bs_DKU-unsplash.webp' alt="Femme levant ses deux mains à l'extérieur" height='3933' width='3879' %}
     </div>
   </section>
-  <!-- EVENTS PRESENTATION -->
+  <!-- EVENTS PRESENTATION SECTION -->
   <section>
     <h2 class="lato lato-bold text-lg-xl">Nos épreuves</h2>
     <div class="flex flex-between flex-wrap">
@@ -43,6 +43,5 @@
       {% include 'includes/homepage-card.html' with image='images/event-6.webp' alt="Un homme qui fait une figure acrobatique avec son vélo" height='2964' width='2964' %}
     </div>
   </section>
-  <!-- CTA -->
 </div>
 {% endblock content %}
