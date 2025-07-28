@@ -1,4 +1,4 @@
-/* === HERO === */
+/* === HERO SECTION === */
 
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
@@ -21,7 +21,7 @@
   margin: 0 1.25rem;
 }
 
-/* === PRESENTATION === */
+/* === PRESENTATION SECTION === */
 
 .homepage-card {
   width: 30%;
