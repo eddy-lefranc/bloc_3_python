@@ -2,7 +2,9 @@
 <link rel="stylesheet" href="{% static 'css/authentication-form.css' %}" />
 {% endblock additional_css %} {% block title %}Billetterie des Jeux Olympiques -
 Inscription {% endblock title %} {% block content %}
-<h1 class="text-xl lato-bold align-center">Formulaire d'inscription</h1>
+<h1 class="lato lato-bold text-align-center text-xl">
+  Formulaire d'inscription
+</h1>
 <!-- prettier-ignore -->
 {% include 'accounts/includes/authentication-form.html' with button_icon='icons/register.webp' button_alt="Icône du bouton lié au formulaire d'inscription" button_text='Créer mon compte' error_messages=False %}
 {% endblock content %}
