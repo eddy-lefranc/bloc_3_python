@@ -1,29 +1,36 @@
 {% load static %}
 
-<form method="post" class="form flex-column">
+<form method="post" class="flex flex-align-center flex-column">
   {% csrf_token %}
   <table class="form-table">
     {% for field in form %}
     <tr>
-      <td class="text-sm lato-regular">{{ field.label_tag }}</td>
+      <td class="lato lato-regular text-sm">{{ field.label_tag }}</td>
       <td>{{ field }}</td>
     </tr>
     {% if field.errors %} {% for error in field.errors %}
     <tr>
       <td></td>
-      <td class="text-sm error-message lato-bold">{{ error }}</td>
+      <td class="error-message lato lato-bold text-sm">{{ error }}</td>
     </tr>
     {% endfor %} {% endif %} {% endfor %}
   </table>
-  <button type="submit" class="button text-base lato-bold background-primary">
-    <img src="{% static button_icon %}" alt="{{ button_alt }}" />
+  <button
+    type="submit"
+    class="background-primary button flex flex-align-center lato lato-bold text-base"
+  >
+    <img
+      src="{% static button_icon %}"
+      alt="{{ button_alt }}"
+      class="button-image"
+    />
     {{ button_text }}
   </button>
   {% if messages %}
   <div>
     {% for message in messages %}
     <p
-      class="lato-bold text-sm {% if error_messages %}error-message{% endif %} form-submission-message"
+      class="form-submission-message {% if error_messages %}error-message{% endif %} lato lato-bold text-sm"
     >
       {{ message }}
     </p>
