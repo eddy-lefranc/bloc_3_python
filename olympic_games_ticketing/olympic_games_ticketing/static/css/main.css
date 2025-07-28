@@ -2,24 +2,20 @@
 
 :root {
   --bg-primary: #d6c377;
+  --black: black;
   --border-style: 1px solid black;
+  --red: red;
 }
 
 /* === UTILITY CLASSES === */
-
-.align-center {
-  text-align: center;
-}
 
 .background-primary {
   background-color: var(--bg-primary);
 }
 
 .button {
-  align-items: center;
-  border: 1.5px solid black;
+  border: 1.5px solid var(--black);
   border-radius: 10px;
-  display: flex;
   gap: 10px;
   margin-bottom: 1.875rem;
   padding: 0.625rem;
@@ -29,21 +25,27 @@
   cursor: pointer;
 }
 
-.button img {
+.button-image {
   height: 20px;
 }
 
 .error-message {
-  color: red;
+  color: var(--red);
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-align-center {
+  align-items: center;
 }
 
 .flex-between {
-  display: flex;
   justify-content: space-between;
 }
 
 .flex-column {
-  display: flex;
   flex-direction: column;
 }
 
@@ -51,21 +53,26 @@
   border: var(--border-style);
 }
 
-.lato-bold {
+.lato {
   font-family: "Lato", sans-serif;
-  font-weight: 700;
   font-style: normal;
+}
+
+.lato-bold {
+  font-weight: 700;
 }
 
 .lato-regular {
-  font-family: "Lato", sans-serif;
   font-weight: 400;
-  font-style: normal;
 }
 
 .link-appearance {
-  color: black;
+  color: var(--black);
   text-decoration: none;
+}
+
+.list-style-none {
+  list-style: none;
 }
 
 .paragraph-appearance {
@@ -78,19 +85,25 @@
   object-fit: cover;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
+/* === From largest to smallest === */
+
 .text-3xl {
   font-size: 2rem;
   font-size: clamp(2rem, 1.6rem + 2vw, 4rem);
 }
 
-.text-xl {
-  font-size: 1.75rem;
-  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
-}
-
 .text-2xl {
   font-size: 1.5rem;
   font-size: clamp(1.5rem, 1.2rem + 1.5vw, 3rem);
+}
+
+.text-xl {
+  font-size: 1.75rem;
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
 }
 
 .text-lg-xl {
@@ -122,8 +135,7 @@
 /* === HEADER === */
 
 .header {
-  align-items: center;
-  border-bottom: 1.5px solid black;
+  border-bottom: 1.5px solid var(--black);
   margin-bottom: auto;
   /* Vertical | Horizontal */
   padding: 0.625rem 1.25rem;
@@ -134,16 +146,11 @@
   max-width: 100%;
 }
 
-.navbar-list {
-  display: flex;
-  list-style: none;
-}
-
-.navbar-list li {
+.navbar-list-item {
   margin-left: 1.25rem;
 }
 
-.navbar-list li:first-child {
+.navbar-list-item:first-child {
   margin-left: 0;
 }
 
@@ -162,15 +169,13 @@
 /* === FOOTER === */
 
 .footer {
-  border-top: 1.5px solid black;
-  display: flex;
+  border-top: 1.5px solid var(--black);
   justify-content: space-evenly;
   margin-top: auto;
   padding-bottom: 0.938rem;
 }
 
 .footer-list {
-  list-style: none;
   margin: 0;
   padding: 0;
 }
