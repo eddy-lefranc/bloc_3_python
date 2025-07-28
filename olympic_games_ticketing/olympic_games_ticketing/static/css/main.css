@@ -5,6 +5,7 @@
   --black: black;
   --border-style: 1px solid black;
   --red: red;
+  --whitesmoke: whitesmoke;
 }
 
 /* === UTILITY CLASSES === */
@@ -47,6 +48,10 @@
 
 .flex-column {
   flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .image-bordered {
