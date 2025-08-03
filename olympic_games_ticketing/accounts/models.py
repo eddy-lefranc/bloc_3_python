@@ -33,7 +33,6 @@ class User(AbstractUser):
         max_length=150, validators=[name_validator], verbose_name="Nom"
     )
     registration_key = models.UUIDField(
-        max_length=36,
         default=uuid.uuid4,
         editable=False,
         verbose_name="Clé d'inscription",
