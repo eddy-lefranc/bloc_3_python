@@ -27,10 +27,10 @@ class User(AbstractUser):
         max_length=254, unique=True, verbose_name="Adresse électronique"
     )
     first_name = models.CharField(
-        max_length=150, blank=False, validators=[name_validator], verbose_name="Prénom"
+        max_length=150, validators=[name_validator], verbose_name="Prénom"
     )
     last_name = models.CharField(
-        max_length=150, blank=False, validators=[name_validator], verbose_name="Nom"
+        max_length=150, validators=[name_validator], verbose_name="Nom"
     )
     registration_key = models.UUIDField(
         max_length=36,
