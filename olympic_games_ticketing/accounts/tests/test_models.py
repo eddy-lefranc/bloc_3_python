@@ -53,3 +53,19 @@ class UserModelTest(TestCase):
         """Test that the email field verbose name is 'Adresse électronique'."""
         email_field_verbose_name = self.user._meta.get_field("email").verbose_name
         self.assertEqual(email_field_verbose_name, "Adresse électronique")
+
+    def test_first_name_field_is_in_required_fields_constant(self):
+        """Test that 'first_name' is included in the REQUIRED_FIELDS constant."""
+        self.assertIn("first_name", self.user.REQUIRED_FIELDS)
+
+    def test_first_name_field_max_length(self):
+        """Test that the max length for the first name field is 150."""
+        first_name_field_max_length = self.user._meta.get_field("first_name").max_length
+        self.assertEqual(first_name_field_max_length, 150)
+
+    def test_first_name_field_verbose_name(self):
+        """Test that the first name field verbose name is 'Prénom'."""
+        first_name_field_verbose_name = self.user._meta.get_field(
+            "first_name"
+        ).verbose_name
+        self.assertEqual(first_name_field_verbose_name, "Prénom")
