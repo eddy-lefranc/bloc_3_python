@@ -30,7 +30,7 @@
   <div>
     {% for message in messages %}
     <p
-      class="form-submission-message {% if error_messages %}error-message{% endif %} lato lato-bold text-sm"
+      class="{% if error_messages %}error-message{% endif %} lato lato-bold text-sm"
     >
       {{ message }}
     </p>
