@@ -4,8 +4,8 @@ from django.test import TestCase
 from accounts.models import User
 
 
-class UserModelTest(TestCase):
-    """Test cases for verifying the behavior of the accounts models."""
+class CustomUserModelTestCase(TestCase):
+    """Tests for verifying the behavior of the custom user model."""
 
     @classmethod
     def setUpTestData(cls):
