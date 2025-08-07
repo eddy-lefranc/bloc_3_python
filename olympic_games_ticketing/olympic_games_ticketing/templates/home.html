@@ -9,7 +9,7 @@
   </h2>
   <a
     href="#"
-    class="background-primary button flex flex-align-center hero-link lato lato-bold link-appearance text-base"
+    class="background-primary border-primary button flex flex-align-center hero-link lato lato-bold link-appearance text-base"
   >
     <img
       src="{% static 'icons/offer.webp' %}"
@@ -19,29 +19,31 @@
     Découvrir les offres
   </a>
 </section>
-<div class="main-container">
-  <!-- OLYMPIC GAMES PRESENTATION SECTION -->
-  <section>
-    <h2 class="lato lato-bold text-lg-xl">Les jeux olympiques</h2>
-    <div class="flex flex-between flex-wrap">
-      <!-- prettier-ignore -->
-      {% include 'includes/homepage-card.html' with image='images/amir-mortezaie-RPU5KFrPY90-unsplash.webp' alt="Un tas de drapeaux qui sont les uns à côté des autres" height='2791' width='2791' %}
+<div class="wrapper">
+  <div class="main-container">
+    <!-- OLYMPIC GAMES PRESENTATION SECTION -->
+    <section>
+      <h2 class="lato lato-bold text-lg-xl">Les jeux olympiques</h2>
+      <div class="flex flex-between flex-wrap">
+        <!-- prettier-ignore -->
+        {% include 'includes/homepage-card.html' with image='images/amir-mortezaie-RPU5KFrPY90-unsplash.webp' alt="Un tas de drapeaux qui sont les uns à côté des autres" height='2791' width='2791' %}
       {% include 'includes/homepage-card.html' with image='images/interactive-sports-VYTQNnaboUA-unsplash.webp' alt="Champ d'athlétisme avec des obstacles de course" height='3496' width='3496' %}
       {% include 'includes/homepage-card.html' with image='images/mia-jiang-SQLz3Bs_DKU-unsplash.webp' alt="Femme levant ses deux mains à l'extérieur" height='3933' width='3879' %}
-    </div>
-  </section>
-  <!-- EVENTS PRESENTATION SECTION -->
-  <section>
-    <h2 class="lato lato-bold text-lg-xl">Nos épreuves</h2>
-    <div class="flex flex-between flex-wrap">
-      <!-- prettier-ignore -->
-      {% include 'includes/homepage-card.html' with image='images/event-1.webp' alt="Un homme tenant un ballon de rugby" height='1797' width='1857' %}
+      </div>
+    </section>
+    <!-- EVENTS PRESENTATION SECTION -->
+    <section>
+      <h2 class="lato lato-bold text-lg-xl">Nos épreuves</h2>
+      <div class="flex flex-between flex-wrap">
+        <!-- prettier-ignore -->
+        {% include 'includes/homepage-card.html' with image='images/event-1.webp' alt="Un homme tenant un ballon de rugby" height='1797' width='1857' %}
       {% include 'includes/homepage-card.html' with image='images/event-2.webp' alt="Un groupe de personnes à vélo sur une route" height='2609' width='2595' %}
       {% include 'includes/homepage-card.html' with image='images/event-3.webp' alt="Un homme faisant de la planche à roulettes pendant la journée" height='2730' width='2733' %}
       {% include 'includes/homepage-card.html' with image='images/event-4.webp' alt="Une personne nageant un marathon" height='3698' width='3698' %}
       {% include 'includes/homepage-card.html' with image='images/event-5.webp' alt="Un homme à cheval qui joue au polo" height='3587' width='3353' %}
       {% include 'includes/homepage-card.html' with image='images/event-6.webp' alt="Un homme qui fait une figure acrobatique avec son vélo" height='2964' width='2964' %}
-    </div>
-  </section>
+      </div>
+    </section>
+  </div>
 </div>
 {% endblock content %}

@@ -20,8 +20,12 @@
     {% block additional_css %}{% endblock additional_css %}
   </head>
   <body class="body">
-    {% include 'includes/header.html' %}
+    <div class="background-primary border-primary">
+      {% include 'includes/header.html' %}
+    </div>
     <main class="main">{% block content %}{% endblock content %}</main>
-    {% include 'includes/footer.html' %}
+    <div class="background-primary border-primary">
+      {% include 'includes/footer.html' %}
+    </div>
   </body>
 </html>

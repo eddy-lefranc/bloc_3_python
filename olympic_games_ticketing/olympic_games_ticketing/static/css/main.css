@@ -1,21 +1,28 @@
 /* === ROOT === */
 
 :root {
-  --bg-primary: #d6c377;
   --black: black;
-  --border-style: 1px solid black;
+  --burlywood: #d6c377;
   --red: red;
+  --white: white;
   --whitesmoke: whitesmoke;
 }
 
 /* === UTILITY CLASSES === */
 
 .background-primary {
-  background-color: var(--bg-primary);
+  background-color: var(--burlywood);
+}
+
+.background-secondary {
+  background-color: var(--white);
+}
+
+.border-primary {
+  border: 1.5px solid var(--black);
 }
 
 .button {
-  border: 1.5px solid var(--black);
   border-radius: 10px;
   gap: 10px;
   padding: 0.625rem;
@@ -53,10 +60,6 @@
   flex-wrap: wrap;
 }
 
-.image-bordered {
-  border: var(--border-style);
-}
-
 .lato {
   font-family: "Lato", sans-serif;
   font-style: normal;
@@ -91,6 +94,11 @@
 
 .text-align-center {
   text-align: center;
+}
+
+.wrapper {
+  margin-inline: auto;
+  max-width: 1440px;
 }
 
 /* === From largest to smallest === */
@@ -139,7 +147,6 @@
 /* === HEADER === */
 
 .header {
-  border-bottom: 1.5px solid var(--black);
   margin-bottom: auto;
   /* Vertical | Horizontal */
   padding: 0.625rem 1.25rem;
@@ -168,13 +175,12 @@
 /* === MAIN === */
 
 .main {
-  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 
 /* === FOOTER === */
 
 .footer {
-  border-top: 1.5px solid var(--black);
   justify-content: space-evenly;
   margin-top: auto;
   padding-bottom: 0.938rem;

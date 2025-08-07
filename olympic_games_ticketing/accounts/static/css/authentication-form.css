@@ -2,3 +2,7 @@
   /* Horizontal | Vertical */
   border-spacing: 15px 30px;
 }
+
+input {
+  border: 1.5px solid var(--black);
+}
