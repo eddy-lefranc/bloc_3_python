@@ -4,8 +4,8 @@ from django.urls import resolve
 from olympic_games_ticketing.views import home_page
 
 
-class BaseProjectUrlsTests(SimpleTestCase):
-    """Test cases for verifying that the base project URLS are configured correctly."""
+class TestBaseProjectUrls(SimpleTestCase):
+    """Test cases for verifying that the base project URLs are configured correctly."""
 
     def setUp(self):
         """Resolve the '/' URL for tests."""
