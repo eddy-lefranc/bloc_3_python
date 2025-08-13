@@ -19,7 +19,8 @@ class User(AbstractUser):
     full name is always provided. Those fields are also validated using a name
     validation regex.
 
-    The 'registration_key' field creates a random UUID that cannot be edited.
+    The 'registration_key' field creates a random UUID and the 'editable' attribute
+    is set to False.
     """
 
     username = None
@@ -35,7 +36,6 @@ class User(AbstractUser):
     registration_key = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
-        verbose_name="Clé d'inscription",
     )
 
     USERNAME_FIELD = "email"
