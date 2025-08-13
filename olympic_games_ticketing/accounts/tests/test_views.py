@@ -4,7 +4,7 @@ from django.urls import reverse
 from accounts.models import User
 
 
-class TestSignupViewTestCase(TestCase):
+class TestSignupView(TestCase):
     """Tests for verifying the behavior of the signup view."""
 
     def setUp(self):
