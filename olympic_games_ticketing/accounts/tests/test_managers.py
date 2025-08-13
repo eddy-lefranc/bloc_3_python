@@ -4,7 +4,7 @@ from accounts.models import User
 
 
 class CreateUserTestCase(TestCase):
-    """Tests for the create_user method the custom user manager."""
+    """Tests for the create_user method of the custom user manager."""
 
     @classmethod
     def setUpTestData(cls):
@@ -95,7 +95,7 @@ class CreateUserTestCase(TestCase):
 
 
 class CreateSuperuserTestCase(TestCase):
-    """Tests for the create_superuser method the custom user manager."""
+    """Tests for the create_superuser method of the custom user manager."""
 
     @classmethod
     def setUpTestData(cls):
