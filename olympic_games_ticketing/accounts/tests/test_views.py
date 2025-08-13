@@ -4,7 +4,7 @@ from django.urls import reverse
 from accounts.models import User
 
 
-class SignupViewTests(TestCase):
+class TestSignupViewTestCase(TestCase):
     """Tests for verifying the behavior of the signup view."""
 
     def setUp(self):
@@ -52,9 +52,18 @@ class SignupViewTests(TestCase):
         self.client.post(self.url, data=self.build_data())
         self.assertTrue(User.objects.filter(email="jean.dupont@example.com").exists())
 
-    def test_signup_post_with_invalid_data_shows_error_message(self):
-        """Test that submitting invalid data shows an error message."""
-        response = self.client.post(
-            self.url, data=self.build_data(password2="DifferentPassword!")
+    def test_signup_post_with_invalid_first_name_shows_custom_error_message(self):
+        """Test that an invalid first_name triggers the custom regex error message."""
+        response = self.client.post(self.url, data=self.build_data(first_name="@!#"))
+        self.assertContains(
+            response,
+            "Veuillez entrer un nom valide. Seules les lettres, espaces, tirets et apostrophes sont autorisés.",
         )
-        self.assertContains(response, "Les deux mots de passe ne correspondent pas.")
+
+    def test_signup_post_with_invalid_last_name_shows_custom_error_message(self):
+        """Test that an invalid last_name triggers the custom regex error message."""
+        response = self.client.post(self.url, data=self.build_data(last_name="1234"))
+        self.assertContains(
+            response,
+            "Veuillez entrer un nom valide. Seules les lettres, espaces, tirets et apostrophes sont autorisés.",
+        )
