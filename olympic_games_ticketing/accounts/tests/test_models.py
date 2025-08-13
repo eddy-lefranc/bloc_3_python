@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import IntegrityError
 from django.test import TestCase
 
@@ -28,6 +30,10 @@ class CustomUserModelTestCase(TestCase):
     def test_email_field_is_username_field_constant(self):
         """Test that the USERNAME_FIELD constant is set to 'email'."""
         self.assertEqual(self.user.USERNAME_FIELD, "email")
+
+    def test_email_field_value(self):
+        """Test that the email field stores the expected value."""
+        self.assertEqual(self.user.email, "johndoe@gmail.com")
 
     def test_email_field_max_length(self):
         """Test that the max length for the email field is 254."""
@@ -70,6 +76,10 @@ class CustomUserModelTestCase(TestCase):
         ).verbose_name
         self.assertEqual(first_name_field_verbose_name, "Prénom")
 
+    def test_first_name_field_value(self):
+        """Test that the first name field stores the expected value."""
+        self.assertEqual(self.user.first_name, "John")
+
     def test_last_name_field_is_in_required_fields_constant(self):
         """Test that 'last_name' is included in the REQUIRED_FIELDS constant."""
         self.assertIn("last_name", self.user.REQUIRED_FIELDS)
@@ -86,16 +96,27 @@ class CustomUserModelTestCase(TestCase):
         ).verbose_name
         self.assertEqual(last_name_field_verbose_name, "Nom")
 
+    def test_last_name_field_value(self):
+        """Test that the last name field stores the expected value."""
+        self.assertEqual(self.user.last_name, "Doe")
+
+    def test_password_field_value(self):
+        """Test that the password field stores the expected value."""
+        self.assertTrue(self.user.check_password("paris2024"))
+
     def test_registration_key_field_is_generated(self):
         """Test that a registration key is generated for the user."""
         self.assertIsNotNone(self.user.registration_key)
 
-    def test_registration_key_field_verbose_name(self):
-        """Test that the registration key field verbose name is 'Clé d'inscription'."""
-        registration_key_field_verbose_name = self.user._meta.get_field(
-            "registration_key"
-        ).verbose_name
-        self.assertEqual(registration_key_field_verbose_name, "Clé d'inscription")
+    def test_registration_key_field_default_attribute_is_uuid4(self):
+        """Test that registration key default attribute is 'uuid.uuid4'."""
+        registration_key_field = self.user._meta.get_field("registration_key")
+        self.assertIs(registration_key_field.default, uuid.uuid4)
+
+    def test_registration_key_field_editable_attribute_is_false(self):
+        """Test that registration key is not editable."""
+        registration_key_field = self.user._meta.get_field("registration_key")
+        self.assertFalse(registration_key_field.editable)
 
     def test_str_method_returns_full_name(self):
         """Test that the __str__ method returns the full name of the user."""
