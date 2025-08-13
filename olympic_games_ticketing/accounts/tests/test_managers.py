@@ -3,7 +3,7 @@ from django.test import TestCase
 from accounts.models import User
 
 
-class CreateUserTestCase(TestCase):
+class TestCreateUserManagerTestCase(TestCase):
     """Tests for the create_user method of the custom user manager."""
 
     @classmethod
@@ -94,7 +94,7 @@ class CreateUserTestCase(TestCase):
             )
 
 
-class CreateSuperuserTestCase(TestCase):
+class TestCreateSuperuserManagerTestCase(TestCase):
     """Tests for the create_superuser method of the custom user manager."""
 
     @classmethod
