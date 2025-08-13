@@ -3,7 +3,7 @@ from django.test import TestCase
 from accounts.forms import SignupForm
 
 
-class TestSignupFormTestCase(TestCase):
+class TestSignupForm(TestCase):
     """Tests for verifying the behavior of the signup form."""
 
     def setUp(self):
