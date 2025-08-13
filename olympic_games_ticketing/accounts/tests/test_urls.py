@@ -4,7 +4,7 @@ from django.urls import resolve
 from accounts.views import signup_page
 
 
-class AccountsAppUrlsTests(SimpleTestCase):
+class TestAccountsAppUrlsTestCase(SimpleTestCase):
     """Test cases for verifying that accounts app URLs are configured correctly."""
 
     def setUp(self):
