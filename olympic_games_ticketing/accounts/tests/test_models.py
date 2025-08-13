@@ -6,7 +6,7 @@ from django.test import TestCase
 from accounts.models import User
 
 
-class CustomUserModelTestCase(TestCase):
+class TestCustomUserModelTestCase(TestCase):
     """Tests for verifying the behavior of the custom user model."""
 
     @classmethod
