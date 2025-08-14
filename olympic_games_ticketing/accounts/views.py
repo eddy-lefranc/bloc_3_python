@@ -1,9 +1,10 @@
-from django.contrib import messages
 from django.shortcuts import redirect, render
 
+from accounts.decorators import redirect_to_home_if_authenticated
 from accounts.forms import SignupForm
 
 
+@redirect_to_home_if_authenticated
 def signup_page(request):
     """
     Display and process the user signup form.
@@ -15,18 +16,22 @@ def signup_page(request):
     - If invalid, re-renders the form with error messages.
     """
 
-    if request.user.is_authenticated:
-        return redirect("home")
-
     if request.method == "POST":
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(
-                request,
-                "🥇 Inscription réussie ! Connectez-vous dès maintenant pour accéder à votre compte.",
-            )
+            return redirect("signup-confirmation")
     else:
         form = SignupForm()
 
     return render(request, "accounts/signup.html", context={"form": form})
+
+
+@redirect_to_home_if_authenticated
+def signup_confirmation_page(request):
+    """
+    Display the signup confirmation page for visitors who have just completed
+    the registration process. Accessible only to non-authenticated users.
+    """
+
+    return render(request, "accounts/signup-confirmation.html")
