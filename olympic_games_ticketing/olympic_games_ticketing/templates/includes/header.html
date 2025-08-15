@@ -1,0 +1,45 @@
+{% load static %}
+<header
+  class="background-primary flex flex-align-center flex-between header wrapper"
+>
+  <a href="{% url 'home' %}">
+    <img
+      src="{% static 'images/logo.webp' %}"
+      alt="Logo de l'application de réservation de billets des Jeux Olympiques"
+      class="header-logo"
+      height="80"
+      width="80"
+    />
+  </a>
+  <nav>
+    <ul class="flex list-style-none navbar-list">
+      {% if user.is_authenticated %}
+      <li class="navbar-list-item">
+        <a href="#" class="lato lato-bold link-appearance text-sm">Offres</a>
+      </li>
+      <li class="navbar-list-item">
+        <a href="#" class="lato lato-bold link-appearance text-sm">Panier</a>
+      </li>
+      <li class="navbar-list-item">
+        <a href="#" class="lato lato-bold link-appearance text-sm"
+          >Déconnexion</a
+        >
+      </li>
+      {% else %}
+      <li class="navbar-list-item">
+        <a
+          href="{% url 'signup' %}"
+          class="lato lato-bold link-appearance text-sm"
+          >Inscription</a
+        >
+      </li>
+      <li class="navbar-list-item">
+        <a href="#" class="lato lato-bold link-appearance text-sm">Connexion</a>
+      </li>
+      <li class="navbar-list-item">
+        <a href="#" class="lato lato-bold link-appearance text-sm">Offres</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
