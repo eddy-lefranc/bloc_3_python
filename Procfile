@@ -1,0 +1,1 @@
+web: cd olympic_games_ticketing && python manage.py migrate && python manage.py collectstatic --no-input && gunicorn olympic_games_ticketing.wsgi
