@@ -1,0 +1,7 @@
+.env
+db.sqlite3
+accounts/__pycache__/
+accounts/migrations/__pycache__/
+accounts/tests/__pycache__/
+olympic_games_ticketing/__pycache__/
+olympic_games_ticketing/tests/__pycache__/

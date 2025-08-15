@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- prettier-ignore -->
+    <title>{% block title %}Billeterie des Jeux Olympiques - Accueil{% endblock title %}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    {% block additional_css %}{% endblock additional_css %}
+  </head>
+  <body class="body flex flex-column">
+    <div class="background-primary border-primary">
+      {% include 'includes/header.html' %}
+    </div>
+    <main class="main">{% block content %}{% endblock content %}</main>
+    <div class="background-primary border-primary">
+      {% include 'includes/footer.html' %}
+    </div>
+  </body>
+</html>

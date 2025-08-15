@@ -1,0 +1,40 @@
+{% load static %}
+
+<form method="post" class="flex flex-align-center flex-column">
+  {% csrf_token %}
+  <table class="form-table">
+    {% for field in form %}
+    <tr>
+      <td class="lato lato-regular text-sm">{{ field.label_tag }}</td>
+      <td>{{ field }}</td>
+    </tr>
+    {% if field.errors %} {% for error in field.errors %}
+    <tr>
+      <td></td>
+      <td class="error-message lato lato-bold text-sm">{{ error }}</td>
+    </tr>
+    {% endfor %} {% endif %} {% endfor %}
+  </table>
+  <button
+    type="submit"
+    class="background-primary border-primary button flex flex-align-center lato lato-bold text-base"
+  >
+    <img
+      src="{% static button_icon %}"
+      alt="{{ button_alt }}"
+      class="button-image"
+    />
+    {{ button_text }}
+  </button>
+  {% if messages %}
+  <div>
+    {% for message in messages %}
+    <p
+      class="{% if error_messages %}error-message{% endif %} lato lato-bold text-sm"
+    >
+      {{ message }}
+    </p>
+    {% endfor %}
+  </div>
+  {% endif %}
+</form>
