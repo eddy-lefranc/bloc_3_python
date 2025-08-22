@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% load static %} {% block additional_css %}
+<link rel="stylesheet" href="{% static 'css/authentication-form.css' %}" />
+{% endblock additional_css %} {% block title %}Billetterie des Jeux Olympiques -
+Connexion {% endblock title %} {% block content %}
+<h1 class="lato lato-bold text-align-center text-xl">
+  Formulaire de connexion
+</h1>
+<!-- prettier-ignore -->
+{% include 'accounts/includes/authentication-form.html' with button_icon='icons/login.png' button_alt="Icône du bouton lié au formulaire de connexion" button_text='Se connecter' error_messages=True %}
+{% endblock content %}
