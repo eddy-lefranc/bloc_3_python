@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 
 from accounts.decorators import redirect_to_home_if_authenticated
@@ -69,3 +69,9 @@ def login_page(request):
         form = LoginForm()
 
     return render(request, "accounts/login.html", context={"form": form})
+
+
+def logout_user(request):
+    """Log out the current user and redirect to the homepage."""
+    logout(request)
+    return redirect("home")
