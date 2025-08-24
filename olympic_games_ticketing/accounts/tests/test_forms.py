@@ -1,5 +1,5 @@
 from django.forms import PasswordInput
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 
 from accounts.forms import LoginForm, SignupForm
 
@@ -23,6 +23,11 @@ class TestSignupForm(TestCase):
         data = self.valid_data.copy()
         data.update(overrides)
         return data
+
+    def test_signup_form_fields_order(self):
+        """Test that the signup form fields appears in order."""
+        fields_order = ["email", "first_name", "last_name", "password1", "password2"]
+        self.assertEqual(list(self.form.fields), fields_order)
 
     def test_username_field_not_in_form(self):
         """Test that the 'username' field is not present in the form fields."""
@@ -108,7 +113,7 @@ class TestSignupForm(TestCase):
         self.assertIn("password2", form.errors)
 
 
-class TestLoginForm(TestCase):
+class TestLoginForm(SimpleTestCase):
     """Tests for verifying the behavior of the login form"""
 
     def setUp(self):
@@ -125,12 +130,17 @@ class TestLoginForm(TestCase):
         data.update(overrides)
         return data
 
+    def test_login_form_fields_order(self):
+        """Test that the login form fields appears in order."""
+        fields_order = ["email", "password"]
+        self.assertEqual(list(self.form.fields), fields_order)
+
     def test_email_field_in_form(self):
         """Test that the 'email' field is present in the form fields."""
         self.assertIn("email", self.form.fields)
 
     def test_email_field_max_length(self):
-        """Test that the max length for the email field is 254."""
+        """Test that the max length for the email field is '254'."""
         self.assertEqual(self.form.fields["email"].max_length, 254)
 
     def test_email_field_label(self):
@@ -142,7 +152,7 @@ class TestLoginForm(TestCase):
         self.assertIn("password", self.form.fields)
 
     def test_password_field_max_length(self):
-        """Test that the max length for the password field is 128."""
+        """Test that the max length for the password field is '128'."""
         self.assertEqual(self.form.fields["password"].max_length, 128)
 
     def test_password_field_widget(self):
@@ -164,17 +174,17 @@ class TestLoginForm(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("email", form.errors)
 
-    def test_form_invalid_with_bad_email(self):
-        """Test that invalid email triggers a form error."""
-        form = LoginForm(data=self.build_data(email="not-an-email"))
-        self.assertFalse(form.is_valid())
-        self.assertIn("email", form.errors)
-
     def test_form_invalid_without_password(self):
         """Test that missing password triggers a form error."""
         form = LoginForm(data=self.build_data(password=""))
         self.assertFalse(form.is_valid())
         self.assertIn("password", form.errors)
+
+    def test_form_invalid_with_bad_email(self):
+        """Test that invalid email triggers a form error."""
+        form = LoginForm(data=self.build_data(email="not-an-email"))
+        self.assertFalse(form.is_valid())
+        self.assertIn("email", form.errors)
 
     def test_form_invalid_with_bad_password(self):
         """Test that a password longer than defined max length triggers a form error."""
