@@ -1,7 +1,9 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 
 from accounts.decorators import redirect_to_home_if_authenticated
-from accounts.forms import SignupForm
+from accounts.forms import LoginForm, SignupForm
 
 
 @redirect_to_home_if_authenticated
@@ -35,3 +37,41 @@ def signup_confirmation_page(request):
     """
 
     return render(request, "accounts/signup-confirmation.html")
+
+
+@redirect_to_home_if_authenticated
+def login_page(request):
+    """
+    Handles user login. Displays the login form and processes form submission.
+
+    Supports POST requests to handle form submission. Other request methods (e.g., GET)
+    simply display an empty login form.
+
+    If the form is valid, the user is logged in and redirected to the home page.
+    If the form is not valid, the page reloads with error messages.
+    """
+
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(
+                email=form.cleaned_data["email"], password=form.cleaned_data["password"]
+            )
+            if user is not None:
+                login(request, user)
+                return redirect("home")
+            else:
+                messages.error(
+                    request,
+                    "Identifiants invalides. Veuillez vérifier vos identifiants et réessayer.",
+                )
+    else:
+        form = LoginForm()
+
+    return render(request, "accounts/login.html", context={"form": form})
+
+
+def logout_user(request):
+    """Log out the current user and redirect to the homepage."""
+    logout(request)
+    return redirect("home")
