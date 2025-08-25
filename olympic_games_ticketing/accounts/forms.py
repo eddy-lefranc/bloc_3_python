@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
@@ -14,3 +15,18 @@ class SignupForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = ("email", "first_name", "last_name")
+
+
+class LoginForm(forms.Form):
+    """
+    Custom user login form.
+
+    This form is used to authenticate a user by their email address and password.
+    The password field also uses the forms.PasswordInput widget which automatically
+    hides the user input.
+    """
+
+    email = forms.EmailField(max_length=254, label="Adresse électronique")
+    password = forms.CharField(
+        max_length=128, widget=forms.PasswordInput, label="Mot de passe"
+    )
