@@ -17,23 +17,52 @@ class Offer(models.Model):
     creation/update timestamps, an active flag, and a sales counter.
     """
 
-    thumbnail = models.ImageField(upload_to="products", blank=True, null=True)
-    name = models.CharField(unique=True, max_length=100)
-    slug = models.SlugField(unique=True, max_length=120)
-    description = models.TextField(blank=True)
-    seats = models.PositiveSmallIntegerField(
-        default=1, validators=[MinValueValidator(1)]
+    thumbnail = models.ImageField(
+        upload_to="products",
+        blank=True,
+        null=True,
+        verbose_name="Image",
+        help_text="Ajoutez une image qui représente l'offre (optionnel).",
     )
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    name = models.CharField(unique=True, max_length=100, verbose_name="Nom")
+    slug = models.SlugField(
+        unique=True,
+        max_length=120,
+        help_text="La valeur se remplit automatiquement en renseignant le nom de l'offre.",
+    )
+    description = models.TextField(
+        blank=True, help_text="Ajoutez une description de l'offre (optionnel)."
+    )
+    seats = models.PositiveSmallIntegerField(
+        default=1,
+        validators=[MinValueValidator(1)],
+        verbose_name="Nombre de places",
+        help_text="Précisez le nombre de places associées à l'offre.",
+    )
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Prix",
+        validators=[MinValueValidator(0.01)],
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Est en vente",
+        help_text="Cochez la case si l'offre est en vente.",
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True, editable=False, verbose_name="Date de création"
+    )
     updated_at = models.DateTimeField(
         auto_now=True,
         null=True,
         blank=True,
         editable=False,
+        verbose_name="Date de la dernière mise à jour",
     )
-    sales = models.PositiveIntegerField(default=0)
+    sales = models.PositiveIntegerField(
+        default=0, verbose_name="Nombre de ventes", editable=False
+    )
 
     def __str__(self):
         """
