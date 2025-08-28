@@ -17,13 +17,6 @@ class Offer(models.Model):
     creation/update timestamps, an active flag, and a sales counter.
     """
 
-    thumbnail = models.ImageField(
-        upload_to="products",
-        blank=True,
-        null=True,
-        verbose_name="Image",
-        help_text="Ajoutez une image qui représente l'offre (optionnel).",
-    )
     name = models.CharField(unique=True, max_length=100, verbose_name="Nom")
     slug = models.SlugField(
         unique=True,
