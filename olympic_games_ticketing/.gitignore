@@ -5,3 +5,4 @@ accounts/migrations/__pycache__/
 accounts/tests/__pycache__/
 olympic_games_ticketing/__pycache__/
 olympic_games_ticketing/tests/__pycache__/
+products/__pycache__/
