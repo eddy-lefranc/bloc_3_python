@@ -24,7 +24,7 @@ class Offer(models.Model):
         help_text="La valeur se remplit automatiquement en renseignant le nom de l'offre.",
     )
     description = models.TextField(
-        blank=True, help_text="Ajoutez une description de l'offre (optionnel)."
+        help_text="Ajoutez une description de l'offre (optionnel)."
     )
     seats = models.PositiveSmallIntegerField(
         default=1,
