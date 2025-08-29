@@ -1,6 +1,5 @@
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.urls import reverse
 
 
 class Offer(models.Model):
@@ -61,8 +60,3 @@ class Offer(models.Model):
         """
 
         return f"{self.name}"
-
-    def get_absolute_url(self):
-        """Returns the URL of the offer detail page based on the slug."""
-
-        return reverse("product", kwargs={"slug": self.slug})
