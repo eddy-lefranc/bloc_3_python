@@ -139,12 +139,12 @@ class TestOfferModel(TestCase):
 
     def test_is_active_field_value(self):
         """Test that the is_active field stores the expected value."""
-        self.assertEqual(self.offer.is_active, True)
+        self.assertTrue(self.offer.is_active)
 
     def test_is_active_field_default_value(self):
         """Test that the is_active field has the expected default value."""
-        is_active_field_default_value = self.offer._meta.get_field("is_active").default
-        self.assertEqual(is_active_field_default_value, True)
+        is_active_field = self.offer._meta.get_field("is_active")
+        self.assertTrue(is_active_field.default)
 
     def test_is_active_field_verbose_name(self):
         """Test that the is_active field verbose name is 'Est en vente'."""
@@ -159,4 +159,50 @@ class TestOfferModel(TestCase):
         self.assertEqual(
             is_active_field_help_text,
             "Cochez la case si l'offre est en vente.",
+        )
+
+    def test_created_at_field_auto_now_add(self):
+        """Test that auto_now_add attribute is True for created_at field."""
+        created_at_field = self.offer._meta.get_field("created_at")
+        self.assertTrue(created_at_field.auto_now_add)
+
+    def test_created_at_field_editable_attribute_is_false(self):
+        """Test that created_at field is not editable."""
+        created_at_field = self.offer._meta.get_field("created_at")
+        self.assertFalse(created_at_field.editable)
+
+    def test_created_at_field_verbose_name(self):
+        """Test that the created_at field verbose name is 'Date de création'."""
+        is_active_field_verbose_name = self.offer._meta.get_field(
+            "created_at"
+        ).verbose_name
+        self.assertEqual(is_active_field_verbose_name, "Date de création")
+
+    def test_updated_at_field_auto_now_add(self):
+        """Test that auto_now attribute is True for updated_at field."""
+        updated_at_field = self.offer._meta.get_field("updated_at")
+        self.assertTrue(updated_at_field.auto_now)
+
+    def test_updated_at_field_is_null(self):
+        """Test that null is True for updated_at field."""
+        updated_at_field = self.offer._meta.get_field("updated_at")
+        self.assertTrue(updated_at_field.null)
+
+    def test_updated_at_field_is_blank(self):
+        """Test that blank is True for updated_at field."""
+        updated_at_field = self.offer._meta.get_field("updated_at")
+        self.assertTrue(updated_at_field.blank)
+
+    def test_updated_at_field_editable_attribute_is_false(self):
+        """Test that updated_at field is not editable."""
+        updated_at_field = self.offer._meta.get_field("updated_at")
+        self.assertFalse(updated_at_field.editable)
+
+    def test_updated_at_field_verbose_name(self):
+        """Test that the updated_at field verbose name is correct."""
+        updated_at_field_verbose_name = self.offer._meta.get_field(
+            "updated_at"
+        ).verbose_name
+        self.assertEqual(
+            updated_at_field_verbose_name, "Date de la dernière mise à jour"
         )
