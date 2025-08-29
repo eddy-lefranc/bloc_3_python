@@ -9,7 +9,7 @@ class TestOfferModel(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        """Set up a test offer for all tests."""
+        """Set up a test offer and retrieve the offer for tests."""
         Offer.objects.create(
             name="Solo",
             slug="solo",
@@ -18,10 +18,7 @@ class TestOfferModel(TestCase):
             price=25,
             is_active=True,
         )
-
-    def setUp(self):
-        """Retrieve the test offer for each test case."""
-        self.offer = Offer.objects.get(id=1)
+        cls.offer = Offer.objects.get(id=1)
 
     def test_name_field_value(self):
         """Test that the name field stores the expected value."""
@@ -86,4 +83,49 @@ class TestOfferModel(TestCase):
         self.assertEqual(
             slug_field_help_text,
             "La valeur se remplit automatiquement en renseignant le nom de l'offre.",
+        )
+
+    def test_description_field_value(self):
+        """Test that the description field stores the expected value."""
+        self.assertEqual(
+            self.offer.description,
+            "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+        )
+
+    def test_description_field_help_text(self):
+        """Test that the description field help text has the expected value."""
+        description_field_help_text = self.offer._meta.get_field(
+            "description"
+        ).help_text
+        self.assertEqual(
+            description_field_help_text, "Ajoutez une description de l'offre."
+        )
+
+    def test_seats_field_value(self):
+        """Test that the seats field stores the expected value."""
+        self.assertEqual(self.offer.seats, 1)
+
+    def test_seats_field_default_value(self):
+        """Test that the seats field has the expected default value."""
+        seats_field_default_value = self.offer._meta.get_field("seats").default
+        self.assertEqual(seats_field_default_value, 1)
+
+    def test_seats_fields_min_value(self):
+        """Test that the database rejects less than min value for seats field."""
+        with self.assertRaises(IntegrityError):
+            Offer.objects.create(
+                name="Lorem ipsum",
+                slug="solo",
+                description="Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+                seats=0,
+                price=25,
+                is_active=True,
+            )
+
+    def test_seats_field_help_text(self):
+        """Test that the seats field help text has the expected value."""
+        seats_field_help_text = self.offer._meta.get_field("seats").help_text
+        self.assertEqual(
+            seats_field_help_text,
+            "Précisez le nombre de places associées à l'offre.",
         )
