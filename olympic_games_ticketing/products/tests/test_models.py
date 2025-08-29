@@ -206,3 +206,22 @@ class TestOfferModel(TestCase):
         self.assertEqual(
             updated_at_field_verbose_name, "Date de la dernière mise à jour"
         )
+
+    def test_sales_field_default_value(self):
+        """Test that the sales field has the expected default value."""
+        sales_field_default_value = self.offer._meta.get_field("sales").default
+        self.assertEqual(sales_field_default_value, 0)
+
+    def test_sales_field_verbose_name(self):
+        """Test that the sales field verbose name is 'Nombre de ventes'."""
+        sales_field_verbose_name = self.offer._meta.get_field("sales").verbose_name
+        self.assertEqual(sales_field_verbose_name, "Nombre de ventes")
+
+    def test_sales_field_editable_attribute_is_false(self):
+        """Test that sales field is not editable."""
+        sales_field = self.offer._meta.get_field("updated_at")
+        self.assertFalse(sales_field.editable)
+
+    def test_str_method_returns_offer_name(self):
+        """Test that the __str__ method returns the name of the offer."""
+        self.assertEqual(str(self.offer), "Solo")
