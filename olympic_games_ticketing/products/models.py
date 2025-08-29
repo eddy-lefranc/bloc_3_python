@@ -23,9 +23,7 @@ class Offer(models.Model):
         max_length=120,
         help_text="La valeur se remplit automatiquement en renseignant le nom de l'offre.",
     )
-    description = models.TextField(
-        help_text="Ajoutez une description de l'offre (optionnel)."
-    )
+    description = models.TextField(help_text="Ajoutez une description de l'offre.")
     seats = models.PositiveSmallIntegerField(
         default=1,
         validators=[MinValueValidator(1)],
