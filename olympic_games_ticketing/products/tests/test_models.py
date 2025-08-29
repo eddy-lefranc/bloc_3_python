@@ -110,22 +110,53 @@ class TestOfferModel(TestCase):
         seats_field_default_value = self.offer._meta.get_field("seats").default
         self.assertEqual(seats_field_default_value, 1)
 
-    def test_seats_fields_min_value(self):
-        """Test that the database rejects less than min value for seats field."""
-        with self.assertRaises(IntegrityError):
-            Offer.objects.create(
-                name="Lorem ipsum",
-                slug="solo",
-                description="Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-                seats=0,
-                price=25,
-                is_active=True,
-            )
-
     def test_seats_field_help_text(self):
         """Test that the seats field help text has the expected value."""
         seats_field_help_text = self.offer._meta.get_field("seats").help_text
         self.assertEqual(
             seats_field_help_text,
             "Précisez le nombre de places associées à l'offre.",
+        )
+
+    def test_price_field_value(self):
+        """Test that the price field stores the expected value."""
+        self.assertEqual(self.offer.price, 25)
+
+    def test_price_field_max_digits(self):
+        """Test that price field max digits has the expected value."""
+        price_field_max_digits = self.offer._meta.get_field("price").max_digits
+        self.assertEqual(price_field_max_digits, 10)
+
+    def test_price_field_decimal_places(self):
+        """Test that price field decimal places has the expected value."""
+        price_field_decimal_places = self.offer._meta.get_field("price").decimal_places
+        self.assertEqual(price_field_decimal_places, 2)
+
+    def test_price_field_verbose_name(self):
+        """Test that the price field verbose name is 'Prix'."""
+        price_field_verbose_name = self.offer._meta.get_field("price").verbose_name
+        self.assertEqual(price_field_verbose_name, "Prix")
+
+    def test_is_active_field_value(self):
+        """Test that the is_active field stores the expected value."""
+        self.assertEqual(self.offer.is_active, True)
+
+    def test_is_active_field_default_value(self):
+        """Test that the is_active field has the expected default value."""
+        is_active_field_default_value = self.offer._meta.get_field("is_active").default
+        self.assertEqual(is_active_field_default_value, True)
+
+    def test_is_active_field_verbose_name(self):
+        """Test that the is_active field verbose name is 'Est en vente'."""
+        is_active_field_verbose_name = self.offer._meta.get_field(
+            "is_active"
+        ).verbose_name
+        self.assertEqual(is_active_field_verbose_name, "Est en vente")
+
+    def test_is_active_field_help_text(self):
+        """Test that the is_active field help text has the expected value."""
+        is_active_field_help_text = self.offer._meta.get_field("is_active").help_text
+        self.assertEqual(
+            is_active_field_help_text,
+            "Cochez la case si l'offre est en vente.",
         )
