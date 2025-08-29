@@ -10,7 +10,6 @@ class Offer(models.Model):
     - name: unique title of the offer.
     - price: cost of the offer as a DecimalField.
     - description: detailed textual description.
-    - image: optional image illustrating the offer.
 
     It also includes a slug, the number of seats associated with the offer,
     creation/update timestamps, an active flag, and a sales counter.
@@ -25,7 +24,7 @@ class Offer(models.Model):
     description = models.TextField(help_text="Ajoutez une description de l'offre.")
     seats = models.PositiveSmallIntegerField(
         default=1,
-        validators=[MinValueValidator(1)],
+        validators=[MinValueValidator(1, message="Nombre de places minimum : 1")],
         verbose_name="Nombre de places",
         help_text="Précisez le nombre de places associées à l'offre.",
     )
@@ -33,7 +32,9 @@ class Offer(models.Model):
         max_digits=10,
         decimal_places=2,
         verbose_name="Prix",
-        validators=[MinValueValidator(0.01)],
+        validators=[
+            MinValueValidator(0.01, message="Le prix doit être au moins de 0,01€.")
+        ],
     )
     is_active = models.BooleanField(
         default=True,
@@ -45,8 +46,6 @@ class Offer(models.Model):
     )
     updated_at = models.DateTimeField(
         auto_now=True,
-        null=True,
-        blank=True,
         editable=False,
         verbose_name="Date de la dernière mise à jour",
     )
@@ -59,4 +58,4 @@ class Offer(models.Model):
         Return the offer's name for display purposes, e.g., in the admin interface.
         """
 
-        return f"{self.name}"
+        return self.name
