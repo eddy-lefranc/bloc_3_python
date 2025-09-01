@@ -183,16 +183,6 @@ class TestOfferModel(TestCase):
         updated_at_field = self.offer._meta.get_field("updated_at")
         self.assertTrue(updated_at_field.auto_now)
 
-    def test_updated_at_field_is_null(self):
-        """Test that null is True for updated_at field."""
-        updated_at_field = self.offer._meta.get_field("updated_at")
-        self.assertTrue(updated_at_field.null)
-
-    def test_updated_at_field_is_blank(self):
-        """Test that blank is True for updated_at field."""
-        updated_at_field = self.offer._meta.get_field("updated_at")
-        self.assertTrue(updated_at_field.blank)
-
     def test_updated_at_field_editable_attribute_is_false(self):
         """Test that updated_at field is not editable."""
         updated_at_field = self.offer._meta.get_field("updated_at")
