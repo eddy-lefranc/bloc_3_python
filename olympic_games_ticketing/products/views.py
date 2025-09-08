@@ -1,3 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def offers_list_page(request):
+    """
+    Render the offers list page.
+
+    This view displays all the available offers
+    """
+
+    return render(request, "products/offers_list.html")
