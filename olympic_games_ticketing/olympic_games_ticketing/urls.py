@@ -26,4 +26,5 @@ urlpatterns = [
     path(os.environ.get("ADMIN_SITE_URL"), admin.site.urls),
     path("", home_page, name="home"),
     path("accounts/", include("accounts.urls")),
+    path("cart/", include("cart.urls")),
 ]
