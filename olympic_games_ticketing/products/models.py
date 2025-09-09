@@ -10,6 +10,7 @@ class Offer(models.Model):
     - name: unique title of the offer.
     - price: cost of the offer as a DecimalField.
     - description: detailed textual description.
+    - thumbnail: image illustrating the offer.
 
     It also includes a slug, the number of seats associated with the offer,
     creation/update timestamps, an active flag, and a sales counter.
@@ -21,6 +22,7 @@ class Offer(models.Model):
         max_length=120,
         help_text="La valeur se remplit automatiquement en renseignant le nom de l'offre.",
     )
+    thumbnail = models.ImageField(upload_to="images/", verbose_name="image")
     description = models.TextField(help_text="Ajoutez une description de l'offre.")
     seats = models.PositiveSmallIntegerField(
         default=1,
