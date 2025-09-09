@@ -15,7 +15,11 @@
     <ul class="flex list-style-none navbar-list">
       {% if user.is_authenticated %}
       <li class="navbar-list-item">
-        <a href="#" class="lato lato-bold link-appearance text-sm">Offres</a>
+        <a
+          href="{% url 'offers' %}"
+          class="lato lato-bold link-appearance text-sm"
+          >Offres</a
+        >
       </li>
       <li class="navbar-list-item">
         <a
@@ -47,7 +51,11 @@
         >
       </li>
       <li class="navbar-list-item">
-        <a href="#" class="lato lato-bold link-appearance text-sm">Offres</a>
+        <a
+          href="{% url 'offers' %}"
+          class="lato lato-bold link-appearance text-sm"
+          >Offres</a
+        >
       </li>
       {% endif %}
     </ul>
