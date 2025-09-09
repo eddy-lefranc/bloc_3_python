@@ -157,13 +157,7 @@ STATICFILES_DIRS = [
 # Static file serving.
 # https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
 
-if DEBUG:
-    STORAGES = {
-        "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-        },
-    }
-else:
+if not DEBUG:
     STORAGES = {
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -179,3 +173,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Customizing authentication
 
 AUTH_USER_MODEL = "accounts.User"
+
+# Media configurations
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
