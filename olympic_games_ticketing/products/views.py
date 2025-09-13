@@ -12,4 +12,4 @@ def offers_list_page(request):
 
     offers = Offer.objects.filter(is_active=True).order_by("seats")
 
-    return render(request, "products/offers_list.html", {"offers": offers})
+    return render(request, "products/offers-list.html", {"offers": offers})
