@@ -31,11 +31,6 @@
   width: 30%;
 }
 
-.homepage-card-image {
-  aspect-ratio: 1 / 1;
-  max-width: 100%;
-}
-
 .homepage-card-text {
   width: 100%;
 }
