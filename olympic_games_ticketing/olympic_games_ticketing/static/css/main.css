@@ -10,6 +10,11 @@
 
 /* === UTILITY CLASSES === */
 
+.aspect-square {
+  aspect-ratio: 1 / 1;
+  max-width: 100%;
+}
+
 .background-primary {
   background-color: var(--burlywood);
 }
