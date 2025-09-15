@@ -1,12 +1,10 @@
-<a href="#" class="link-appearance">
-  <article class="border-primary" style="background-color: #d6c377">
+<a href="{{ offer.get_absolute_url }}" class="link-appearance">
+  <article class="background-primary border-primary">
     <img
       src="{{ offer.thumbnail.url }}"
       alt="{{ offer.name }}"
       class="aspect-square offer-card-image responsive-image"
     />
-    <div>
-      <p class="lato lato-bold text-align-center text-base">{{ offer.name }}</p>
-    </div>
+    <p class="lato lato-bold text-align-center text-base">{{ offer.name }}</p>
   </article>
 </a>
