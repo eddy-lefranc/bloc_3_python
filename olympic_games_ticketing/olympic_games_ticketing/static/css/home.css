@@ -31,10 +31,6 @@
   width: 30%;
 }
 
-.homepage-card-text {
-  width: 100%;
-}
-
 @media screen and (max-width: 650px) {
   section > h2 {
     text-align: center;
