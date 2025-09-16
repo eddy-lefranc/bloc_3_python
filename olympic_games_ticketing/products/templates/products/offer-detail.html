@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Billetterie des
+Jeux Olympiques - Voir l'offre {% endblock title %}
+<!--prettier-ignore-->
+{% block additional_css %}
+<link rel="stylesheet" href="{% static 'css/offer-detail.css' %}" />
+{% endblock additional_css %}
+<!--prettier-ignore-->
+{% block content %}
+<article class="flex flex-align-center flex-column offer wrapper">
+  <img
+    src="{{ offer.thumbnail.url }}"
+    alt="{{ offer.name }}"
+    class="aspect-square border-primary offer-image responsive-image"
+  />
+  <div>
+    <h2 class="lato lato-bold text-lg-xl"><u>Caractéristiques :</u></h2>
+    <p class="lato lato-regular text-base">
+      <strong>Nom de l'offre :</strong> {{ offer.name }}
+    </p>
+    <p class="lato lato-regular text-base">
+      <strong>Nombre de places :</strong> {{ offer.seats }}
+    </p>
+    <p class="lato lato-regular text-base">
+      <strong>Prix :</strong> {{ offer.price }}€
+    </p>
+    <h2 class="lato lato-bold text-lg-xl"><u>Description :</u></h2>
+    <p class="lato lato-regular paragraph-appearance text-base">
+      {{ offer.description }}
+    </p>
+  </div>
+  <a
+    href="#"
+    class="background-primary border-primary button flex flex-align-center hero-link lato lato-bold link-appearance text-base"
+  >
+    <img
+      src="{% static 'icons/shopping-cart.png' %}"
+      alt="Icône représentant une offre pour les Jeux Olympiques"
+      class="button-image"
+    />
+    Ajouter au panier
+  </a>
+</article>
+{% endblock content %}
