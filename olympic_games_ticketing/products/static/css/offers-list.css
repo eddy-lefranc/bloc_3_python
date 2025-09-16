@@ -3,10 +3,8 @@
   justify-content: center;
   gap: 20px;
   grid-template-columns: repeat(auto-fit, 250px);
-  width: 100%;
 }
 
 .offer-card-image {
-  border-bottom: 1.5px solid black;
-  width: 100%;
+  border-bottom: 1.5px solid var(--black);
 }
