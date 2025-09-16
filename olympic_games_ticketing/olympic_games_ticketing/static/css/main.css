@@ -65,6 +65,10 @@
   flex-wrap: wrap;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .lato {
   font-family: "Lato", sans-serif;
   font-style: normal;
