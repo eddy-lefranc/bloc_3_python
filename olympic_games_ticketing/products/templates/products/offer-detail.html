@@ -6,7 +6,7 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
 {% endblock additional_css %}
 <!--prettier-ignore-->
 {% block content %}
-<article class="flex flex-align-center flex-column offer wrapper">
+<article class="flex flex-column offer wrapper">
   <img
     src="{{ offer.thumbnail.url }}"
     alt="{{ offer.name }}"
@@ -28,16 +28,18 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
       {{ offer.description }}
     </p>
   </div>
-  <a
-    href="#"
-    class="background-primary border-primary button flex flex-align-center hero-link lato lato-bold link-appearance text-base"
-  >
-    <img
-      src="{% static 'icons/shopping-cart.png' %}"
-      alt="Icône représentant une offre pour les Jeux Olympiques"
-      class="button-image"
-    />
-    Ajouter au panier
-  </a>
+  <div class="flex justify-content-center">
+    <a
+      href="#"
+      class="align-items-center background-primary border-primary button flex hero-link lato lato-bold link-appearance text-base"
+    >
+      <img
+        src="{% static 'icons/shopping-cart.png' %}"
+        alt="Icône représentant une offre pour les Jeux Olympiques"
+        class="button-image"
+      />
+      Ajouter au panier
+    </a>
+  </div>
 </article>
 {% endblock content %}
