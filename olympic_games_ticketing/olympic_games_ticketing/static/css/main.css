@@ -10,6 +10,10 @@
 
 /* === UTILITY CLASSES === */
 
+.align-items-center {
+  align-items: center;
+}
+
 .aspect-square {
   aspect-ratio: 1 / 1;
   max-width: 100%;
@@ -49,14 +53,6 @@
   display: flex;
 }
 
-.flex-align-center {
-  align-items: center;
-}
-
-.flex-between {
-  justify-content: space-between;
-}
-
 .flex-column {
   flex-direction: column;
 }
@@ -67,6 +63,14 @@
 
 .full-width {
   width: 100%;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
 }
 
 .lato {
