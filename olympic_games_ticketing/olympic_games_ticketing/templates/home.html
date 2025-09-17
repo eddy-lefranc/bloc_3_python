@@ -2,14 +2,16 @@
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock additional_css %} {% block content %}
 <!-- HERO SECTION -->
-<section class="flex flex-align-center flex-column hero text-align-center">
+<section
+  class="align-items-center flex flex-column hero justify-content-center text-align-center"
+>
   <h1 class="lato lato-bold text-3xl">Billetterie officielle de Paris 2024</h1>
   <h2 class="hero-subtitle lato lato-bold text-2xl">
     Bienvenue sur le site officiel des Jeux Olympiques
   </h2>
   <a
     href="{% url 'offers' %}"
-    class="background-primary border-primary button flex flex-align-center hero-link lato lato-bold link-appearance text-base"
+    class="align-items-center background-primary border-primary button flex hero-link lato lato-bold link-appearance text-base"
   >
     <img
       src="{% static 'icons/offer.webp' %}"
@@ -24,7 +26,7 @@
     <!-- OLYMPIC GAMES PRESENTATION SECTION -->
     <section>
       <h2 class="lato lato-bold text-lg-xl">Les jeux olympiques</h2>
-      <div class="flex flex-between flex-wrap">
+      <div class="flex flex-wrap justify-content-space-between">
         <!-- prettier-ignore -->
         {% include 'includes/homepage-card.html' with image='images/amir-mortezaie-RPU5KFrPY90-unsplash.webp' alt="Un tas de drapeaux qui sont les uns à côté des autres" height='2791' width='2791' %}
       {% include 'includes/homepage-card.html' with image='images/interactive-sports-VYTQNnaboUA-unsplash.webp' alt="Champ d'athlétisme avec des obstacles de course" height='3496' width='3496' %}
@@ -34,7 +36,7 @@
     <!-- EVENTS PRESENTATION SECTION -->
     <section>
       <h2 class="lato lato-bold text-lg-xl">Nos épreuves</h2>
-      <div class="flex flex-between flex-wrap">
+      <div class="flex flex-wrap justify-content-space-between">
         <!-- prettier-ignore -->
         {% include 'includes/homepage-card.html' with image='images/event-1.webp' alt="Un homme tenant un ballon de rugby" height='1797' width='1857' %}
       {% include 'includes/homepage-card.html' with image='images/event-2.webp' alt="Un groupe de personnes à vélo sur une route" height='2609' width='2595' %}
