@@ -10,7 +10,7 @@ Jeux Olympiques - Liste des offres {% endblock title %}
     Les offres de la billetterie des Jeux Olympiques
   </h1>
   <!--prettier-ignore-->
-  <section class="full-width offers-container">
+  <section class="full-width justify-content-center offers-container">
     {% for offer in offers %}
       {% include 'products/includes/offer-card.html' with offer=offer %}
     {% endfor %}
