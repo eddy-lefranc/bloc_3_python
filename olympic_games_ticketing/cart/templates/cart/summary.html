@@ -1,2 +1,9 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Billetterie des
-Jeux Olympiques - Panier{% endblock title %}
+{% extends 'base.html' %} {% load static %} {% block title %} Billetterie des
+Jeux Olympiques - Panier {% endblock title %} {% block content %}
+<!--prettier-ignore-->
+{% if cart_products %} 
+{% for product in cart_products %}
+<div>Lorem ipsum.</div>
+{% endfor %} {% else %}
+<div>Votre panier est vide.</div>
+{% endif %} {% endblock content %}
