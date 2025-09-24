@@ -15,34 +15,28 @@ class Cart:
 
         self.cart = cart
 
-    def add(self, product):
+    def add(self, offer):
         """
-        Adds a single product to the basket and stores the relevant information
+        Adds a single offer to the cart and stores the relevant information
         in a dictionary.
         """
 
-        product_id = str(product.id)
+        offer_id = str(offer.id)
 
-        if product_id not in self.cart:
-            self.cart[product_id] = {
-                "name": product.name,
-                "image": product.thumbnail.url,
-                "seats": product.seats,
-                "price": str(product.price),
+        if offer_id not in self.cart:
+            self.cart[offer_id] = {
+                "name": offer.name,
+                "image": offer.thumbnail.url,
+                "seats": offer.seats,
+                "price": str(offer.price),
                 "quantity": 1,
             }
 
         self.session.modified = True
 
-    def __len__(self):
-        """Return the number of items in the cart."""
-
-        return len(self.cart)
-
     def get_products(self):
-        """Retrieve a QuerySet of Offer instances in the cart."""
+        """Retrieve a QuerySet of Offer instances in the cart and returns it."""
 
         ids = self.cart.keys()
-        products = Offer.objects.filter(id__in=ids)
 
-        return products
+        return Offer.objects.filter(id__in=ids)
