@@ -30,12 +30,14 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
   </div>
   <div class="flex justify-content-center">
     <button
-      href="#"
       class="align-items-center background-primary border-primary button flex lato lato-bold margin-bottom-lg text-base"
+      id="add-to-cart"
+      type="button"
+      value="{{ offer.id }}"
     >
       <img
         src="{% static 'icons/shopping-cart.png' %}"
-        alt="Icône représentant une offre pour les Jeux Olympiques"
+        alt="Icône représentant un panier d'achat."
         class="button-image"
       />
       Ajouter au panier
@@ -43,3 +45,24 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
   </div>
 </article>
 {% endblock content %}
+<!--prettier-ignore-->
+{% block additional_js %}
+<script>
+  $(document).on("click", "#add-to-cart", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: '{% url "cart-add" %}',
+      data: {
+        offer_id: $("#add-to-cart").val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        action: "post",
+      },
+      success: function (json) {},
+      error: function (xhr, errmsg, err) {
+        console.error("Erreur lors de l'ajout au panier");
+      },
+    });
+  });
+</script>
+{% endblock additional_js %}
