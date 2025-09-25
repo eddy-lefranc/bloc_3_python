@@ -1,8 +1,8 @@
-from django.test import SimpleTestCase
+from django.test import TestCase
 from django.urls import reverse
 
 
-class TestHomePageView(SimpleTestCase):
+class TestHomePageView(TestCase):
     """Tests for verifying the behavior of the home page view."""
 
     def setUp(self):
