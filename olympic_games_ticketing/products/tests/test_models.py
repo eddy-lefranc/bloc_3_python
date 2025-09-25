@@ -12,7 +12,8 @@ class TestOfferModel(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        """Set up a test offer and retrieve the offer for tests."""
+        """Set up a tests offers and retrieve the offers for tests."""
+
         Offer.objects.create(
             name="Solo",
             slug="solo",
@@ -22,6 +23,20 @@ class TestOfferModel(TestCase):
             is_active=True,
         )
         cls.offer = Offer.objects.get(id=1)
+
+        fake_image = SimpleUploadedFile(
+            "test.jpg", b"file_content", content_type="image/jpeg"
+        )
+        Offer.objects.create(
+            name="Offer with image",
+            slug="offer-with-image",
+            thumbnail=fake_image,
+            description="An offer with an image",
+            seats=3,
+            price=45,
+            is_active=True,
+        )
+        cls.offer_with_image = Offer.objects.get(id=2)
 
     def test_name_field_value(self):
         """Test that the name field stores the expected value."""
@@ -87,6 +102,10 @@ class TestOfferModel(TestCase):
             slug_field_help_text,
             "La valeur se remplit automatiquement en renseignant le nom de l'offre.",
         )
+
+    def test_thumbnail_field_uploads_to_images_folder(self):
+        """Verify that uploaded thumbnails are stored in the 'images/' folder."""
+        self.assertTrue(self.offer_with_image.thumbnail.name.startswith("images/"))
 
     def test_thumbnail_field_verbose_name(self):
         """Test that the thumbnail field verbose name is 'image'."""
@@ -243,20 +262,8 @@ class TestOfferModel(TestCase):
 
     def test_get_thumbnail_url_returns_image_url(self):
         """Ensures that if an image is defined, its URL must be obtained."""
-        fake_image = SimpleUploadedFile(
-            "test.jpg", b"file_content", content_type="image/jpeg"
-        )
-        offer = Offer.objects.create(
-            name="Offer with image",
-            slug="offer-with-image",
-            thumbnail=fake_image,
-            description="An offer with an image.",
-            seats=3,
-            price=45,
-            is_active=True,
-        )
-        url = offer.get_thumbnail_url()
-        self.assertEqual(url, offer.thumbnail.url)
+        url = self.offer_with_image.get_thumbnail_url()
+        self.assertEqual(url, self.offer_with_image.thumbnail.url)
 
     def test_get_thumbnail_url_method_returns_fallback_image(self):
         """Ensures that if no image is defined, the fallback image must be displayed."""
