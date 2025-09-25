@@ -8,7 +8,7 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
 {% block content %}
 <article class="flex flex-column offer wrapper">
   <img
-    src="{{ offer.thumbnail.url }}"
+    src="{{ offer.get_thumbnail_url }}"
     alt="{{ offer.name }}"
     class="aspect-square border-primary offer-image responsive-image"
   />
