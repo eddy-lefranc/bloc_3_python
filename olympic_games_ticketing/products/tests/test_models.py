@@ -1,5 +1,8 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import IntegrityError
+from django.templatetags.static import static
 from django.test import TestCase
+from django.urls import reverse
 
 from products.models import Offer
 
@@ -84,6 +87,23 @@ class TestOfferModel(TestCase):
             slug_field_help_text,
             "La valeur se remplit automatiquement en renseignant le nom de l'offre.",
         )
+
+    def test_thumbnail_field_verbose_name(self):
+        """Test that the thumbnail field verbose name is 'image'."""
+        thumbnail_field_verbose_name = self.offer._meta.get_field(
+            "thumbnail"
+        ).verbose_name
+        self.assertEqual(thumbnail_field_verbose_name, "Image")
+
+    def test_thumbnail_field_blank_attribute_is_true(self):
+        """Test that the thumbnail field is blank."""
+        thumbnail_field = self.offer._meta.get_field("thumbnail").blank
+        self.assertEqual(thumbnail_field, True)
+
+    def test_thumbnail_field_null_attribute_is_true(self):
+        """Test that the thumbnail field is null."""
+        thumbnail_field = self.offer._meta.get_field("thumbnail").null
+        self.assertEqual(thumbnail_field, True)
 
     def test_description_field_value(self):
         """Test that the description field stores the expected value."""
@@ -215,3 +235,29 @@ class TestOfferModel(TestCase):
     def test_str_method_returns_offer_name(self):
         """Test that the __str__ method returns the name of the offer."""
         self.assertEqual(str(self.offer), "Solo")
+
+    def test_get_absolute_url_returns_expected_path(self):
+        """Ensure get_absolute_url method returns the correct URL for the offer."""
+        expected_url = reverse("offer", kwargs={"slug": "solo"})
+        self.assertEqual(self.offer.get_absolute_url(), expected_url)
+
+    def test_get_thumbnail_url_returns_image_url(self):
+        """Ensures that if an image is defined, its URL must be obtained."""
+        fake_image = SimpleUploadedFile(
+            "test.jpg", b"file_content", content_type="image/jpeg"
+        )
+        offer = Offer.objects.create(
+            name="Offer with image",
+            slug="offer-with-image",
+            thumbnail=fake_image,
+            description="An offer with an image.",
+            seats=3,
+            price=45,
+            is_active=True,
+        )
+        url = offer.get_thumbnail_url()
+        self.assertEqual(url, offer.thumbnail.url)
+
+    def test_get_thumbnail_url_method_returns_fallback_image(self):
+        """Ensures that if no image is defined, the fallback image must be displayed."""
+        self.assertEqual(self.offer.get_thumbnail_url(), static("images/fallback.webp"))
