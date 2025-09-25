@@ -30,7 +30,7 @@ class Offer(models.Model):
     )
     thumbnail = models.ImageField(
         upload_to="images/",
-        verbose_name="image",
+        verbose_name="Image",
         blank=True,
         null=True,
     )
