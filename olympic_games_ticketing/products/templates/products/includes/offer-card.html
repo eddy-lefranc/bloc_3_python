@@ -1,9 +1,9 @@
 <a href="{{ offer.get_absolute_url }}" class="link-appearance">
   <article class="background-primary border-primary">
     <img
-      src="{{ offer.thumbnail.url }}"
+      src="{{ offer.get_thumbnail_url }}"
       alt="{{ offer.name }}"
-      class="aspect-square offer-card-image responsive-image"
+      class="aspect-square full-width offer-card-image responsive-image"
     />
     <p class="lato lato-bold text-align-center text-base">{{ offer.name }}</p>
   </article>
