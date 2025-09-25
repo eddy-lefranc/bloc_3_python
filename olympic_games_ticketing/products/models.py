@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.templatetags.static import static
 from django.urls import reverse
 
 
@@ -17,13 +18,22 @@ class Offer(models.Model):
     creation/update timestamps, an active flag, and a sales counter.
     """
 
-    name = models.CharField(unique=True, max_length=100, verbose_name="Nom")
+    name = models.CharField(
+        unique=True,
+        max_length=100,
+        verbose_name="Nom",
+    )
     slug = models.SlugField(
         unique=True,
         max_length=120,
         help_text="La valeur se remplit automatiquement en renseignant le nom de l'offre.",
     )
-    thumbnail = models.ImageField(upload_to="images/", verbose_name="image")
+    thumbnail = models.ImageField(
+        upload_to="images/",
+        verbose_name="image",
+        blank=True,
+        null=True,
+    )
     description = models.TextField(help_text="Ajoutez une description de l'offre.")
     seats = models.PositiveSmallIntegerField(
         default=1,
@@ -64,8 +74,14 @@ class Offer(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        """
-        Return the URL to access the offer's detail page.
-        """
+        """Return the URL to access the offer's detail page."""
 
         return reverse("offer", kwargs={"slug": self.slug})
+
+    def get_thumbnail_url(self):
+        """Returns the URL of the offer or a default image."""
+
+        if self.thumbnail:
+            return self.thumbnail.url
+        else:
+            return static("images/fallback.webp")
