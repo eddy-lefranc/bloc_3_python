@@ -114,6 +114,6 @@ class TestOfferDetailPageView(TestCase):
         self.assertContains(response, "25")
 
     def test_offers_detail_get_contains_offer_description(self):
-        """Test that the offers detail page contains the offer's description."""
+        """Test that the offer detail page contains the offer's description."""
         response = self.client.get(self.url)
         self.assertContains(response, "A single seat offer.")
