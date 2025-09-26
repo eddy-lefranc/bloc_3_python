@@ -43,6 +43,21 @@ class TestOffersListPageView(TestCase):
         response = self.client.get(self.url)
         self.assertIn(self.offer, response.context["offers"])
 
+    def test_offers_list_get_contains_heading(self):
+        """
+        Test that the offers list page contains the heading
+        'Les offres de la billetterie des Jeux Olympiques'.
+        """
+        response = self.client.get(self.url)
+        self.assertContains(
+            response, "Les offres de la billetterie des Jeux Olympiques"
+        )
+
+    def test_offers_list_get_contains_offer_name(self):
+        """Test that the offers list page contains the offer name."""
+        response = self.client.get(self.url)
+        self.assertContains(response, "Solo")
+
 
 class TestOfferDetailPageView(TestCase):
     """Tests for verifying the behavior of the offer detail page view."""
@@ -82,3 +97,23 @@ class TestOfferDetailPageView(TestCase):
         """
         response = self.client.get(self.url)
         self.assertEqual(response.context["offer"], self.offer)
+
+    def test_offer_detail_get_contains_offer_name(self):
+        """Test that the offer detail page contains the offer's name."""
+        response = self.client.get(self.url)
+        self.assertContains(response, "Solo")
+
+    def test_offer_detail_get_contains_offer_seats(self):
+        """Test that the offer detail page contains the offer's number of seats."""
+        response = self.client.get(self.url)
+        self.assertContains(response, "1")
+
+    def test_offer_detail_get_contains_offer_price(self):
+        """Test that the offer detail page contains the offer's price."""
+        response = self.client.get(self.url)
+        self.assertContains(response, "25")
+
+    def test_offers_detail_get_contains_offer_description(self):
+        """Test that the offers detail page contains the offer's description."""
+        response = self.client.get(self.url)
+        self.assertContains(response, "A single seat offer.")
