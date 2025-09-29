@@ -25,9 +25,11 @@
         <a
           href="{% url 'cart' %}"
           class="lato lato-bold link-appearance text-sm"
-          >Panier</a
         >
+          Panier (<span id="cart-quantity">{{ cart|length }}</span>)
+        </a>
       </li>
+
       <li class="navbar-list-item">
         <a
           href="{% url 'logout' %}"
