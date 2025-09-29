@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from products.models import Offer
 
@@ -13,7 +12,6 @@ def cart_summary_page(request):
 
     This view displays a summary of the logged-in user's shopping cart.
     """
-
     cart = Cart(request)
     cart_products = cart.get_products()
 
@@ -21,22 +19,17 @@ def cart_summary_page(request):
 
 
 @login_required
-def cart_add(request):
+def add_offer_to_cart(
+    request,
+):
     """
     Add an offer to the shopping cart.
 
-    This view handles AJAX POST requests to add an offer to the cart
-    and returns the updated cart size as JSON.
+    Handles POST requests to add a single offer to the cart.
     """
-
     cart = Cart(request)
 
     if request.POST.get("action") == "post":
         offer_id = int(request.POST.get("offer_id"))
         offer = get_object_or_404(Offer, id=offer_id)
-
-        cart.add(offer)
-
-        cart_size = len(cart.cart)
-
-        return JsonResponse({"size": cart_size})
+        cart.add(offer=offer)
