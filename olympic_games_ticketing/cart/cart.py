@@ -1,12 +1,8 @@
-from products.models import Offer
-
-
 class Cart:
     """Manage the shopping cart stored in the user's session."""
 
     def __init__(self, request):
         """Ensure a cart exists in the session, creating it if absent."""
-
         self.session = request.session
         cart = self.session.get("session_key")
 
@@ -15,12 +11,13 @@ class Cart:
 
         self.cart = cart
 
-    def add(self, offer):
+    def add_offer(self, offer):
         """
-        Adds a single offer to the cart and stores the relevant information
-        in a dictionary.
-        """
+        Add a single offer to the cart.
 
+        Each offer can only appear once in the cart. If the offer is not already
+        in the cart, it is added with its details.
+        """
         offer_id = str(offer.id)
 
         if offer_id not in self.cart:
@@ -34,9 +31,8 @@ class Cart:
 
         self.session.modified = True
 
-    def get_products(self):
-        """Retrieve a QuerySet of Offer instances in the cart and returns it."""
-
-        ids = self.cart.keys()
-
-        return Offer.objects.filter(id__in=ids)
+    def __len__(self):
+        """
+        Return the total quantity of all items in the cart.
+        """
+        return sum(item["quantity"] for item in self.cart.values())
