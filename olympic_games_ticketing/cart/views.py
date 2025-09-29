@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from products.models import Offer
 
@@ -32,4 +33,7 @@ def add_offer_to_cart(
     if request.POST.get("action") == "post":
         offer_id = int(request.POST.get("offer_id"))
         offer = get_object_or_404(Offer, id=offer_id)
-        cart.add(offer=offer)
+        cart.add_offer(offer=offer)
+        cart_quantity = cart.__len__()
+        response = JsonResponse({"quantity": cart_quantity})
+        return response
