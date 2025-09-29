@@ -58,7 +58,10 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
         csrfmiddlewaretoken: "{{ csrf_token }}",
         action: "post",
       },
-      success: function (json) {},
+      success: function (json) {
+        alert("Offre ajoutée au panier !");
+        document.getElementById("cart-quantity").textContent = json.quantity;
+      },
       error: function (xhr, errmsg, err) {
         console.error("Erreur lors de l'ajout au panier");
       },
