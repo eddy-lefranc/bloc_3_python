@@ -13,10 +13,11 @@ def cart_summary_page(request):
 
     This view displays a summary of the logged-in user's shopping cart.
     """
-    cart = Cart(request)
-    cart_products = cart.get_products()
+    # cart = Cart(request)
+    # cart_products = cart.get_products()
+    # {"cart_products": cart_products} - CONTEXTE
 
-    return render(request, "cart/summary.html", {"cart_products": cart_products})
+    return render(request, "cart/cart-summary.html")
 
 
 @login_required
