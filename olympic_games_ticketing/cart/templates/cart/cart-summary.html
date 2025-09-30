@@ -1,0 +1,76 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Billetterie des
+Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
+<link rel="stylesheet" href="{% static 'css/cart-summary.css' %}" />
+{% endblock additional_css %} {% block content %}
+<div class="wrapper">
+  <h1 class="lato lato-bold text-align-center text-xl">Votre panier</h1>
+  <article class="cart-item border-top flex padding-top">
+    <div class="cart-item-image">
+      <img
+        alt="Image de l'offre"
+        class="aspect-square border-primary full-width offer-card-image responsive-image"
+        src="{% static 'images/interactive-sports-VYTQNnaboUA-unsplash.webp' %}"
+      />
+    </div>
+    <div
+      class="cart-item-content flex flex-column justify-content-space-between"
+    >
+      <div class="cart-item-description">
+        <h2 class="lato lato-bold text-lg-xl">Nom de l'offre</h2>
+        <p class="lato lato-regular text-base">Nombre de places</p>
+        <p class="lato lato-regular text-base">Prix de l'offre</p>
+      </div>
+      <div class="cart-item-delete">
+        <p class="lato lato-bold text-base">Supprimer</p>
+      </div>
+    </div>
+  </article>
+  <article class="cart-item border-top flex padding-top">
+    <div class="cart-item-image">
+      <img
+        alt="Image de l'offre"
+        class="aspect-square border-primary full-width offer-card-image responsive-image"
+        src="{% static 'images/interactive-sports-VYTQNnaboUA-unsplash.webp' %}"
+      />
+    </div>
+    <div
+      class="cart-item-content flex flex-column justify-content-space-between"
+    >
+      <div class="cart-item-description">
+        <h2 class="lato lato-bold text-lg-xl">Nom de l'offre</h2>
+        <p class="lato lato-regular text-base">Nombre de places</p>
+        <p class="lato lato-regular text-base">Prix de l'offre</p>
+      </div>
+      <div class="cart-item-delete">
+        <p class="lato lato-bold text-base">Supprimer</p>
+      </div>
+    </div>
+  </article>
+  <div class="border-top cart-summary flex flex-column padding-top">
+    <div>
+      <p>
+        <strong> Nombre d'articles : </strong>
+        N
+      </p>
+      <p>
+        <strong> Prix total : </strong>
+        €
+      </p>
+    </div>
+    <div>
+      <button
+        class="align-items-center background-primary border-primary button flex lato lato-bold margin-bottom-lg text-base"
+        type="button"
+      >
+        <img
+          src="{% static 'icons/payment-card.png' %}"
+          alt="Icône représentant une carte de paiement."
+          class="button-image"
+        />
+        Commander
+      </button>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
