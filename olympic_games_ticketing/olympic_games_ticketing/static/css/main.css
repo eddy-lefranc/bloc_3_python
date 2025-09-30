@@ -31,6 +31,10 @@
   border: 1.5px solid var(--black);
 }
 
+.border-top {
+  border-top: 1px solid var(--black);
+}
+
 .button {
   border-radius: 10px;
   gap: 10px;
@@ -97,6 +101,10 @@
 
 .margin-bottom-lg {
   margin-bottom: 1.875rem;
+}
+
+.padding-top {
+  padding-top: 2.188rem;
 }
 
 .paragraph-appearance {
