@@ -1,3 +1,8 @@
+from decimal import Decimal
+
+from products.models import Offer
+
+
 class Cart:
     """Manage the shopping cart stored in the user's session."""
 
@@ -30,6 +35,23 @@ class Cart:
             }
 
         self.session.modified = True
+
+    def __iter__(self):
+        """
+        Iterate over the items in the cart and enrich them with related Offer objects,
+        decimal prices, and total line prices.
+        """
+        offer_ids = self.cart.keys()
+        offers = Offer.objects.filter(is_active=True, id__in=offer_ids)
+        cart = self.cart.copy()
+
+        for offer in offers:
+            cart[str(offer.id)]["offer"] = offer
+
+        for item in cart.values():
+            item["price"] = Decimal(item["price"])
+            item["total_price"] = item["price"] * item["quantity"]
+            yield item
 
     def __len__(self):
         """
