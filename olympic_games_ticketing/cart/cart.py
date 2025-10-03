@@ -58,3 +58,9 @@ class Cart:
         Return the total quantity of all items in the cart.
         """
         return sum(item["quantity"] for item in self.cart.values())
+
+    def get_total_price(self):
+        """Return the total price of the cart."""
+        return sum(
+            Decimal(item["price"]) * item["quantity"] for item in self.cart.values()
+        )
