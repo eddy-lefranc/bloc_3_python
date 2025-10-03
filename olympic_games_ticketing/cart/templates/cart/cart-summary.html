@@ -4,49 +4,35 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
 {% endblock additional_css %} {% block content %}
 <div class="wrapper">
   <h1 class="lato lato-bold text-align-center text-xl">Votre panier</h1>
+  {% for item in cart %} {% with offer=item.offer %}
   <article class="cart-item border-top flex padding-top">
     <div class="cart-item-image">
       <img
         alt="Image de l'offre"
         class="aspect-square border-primary full-width offer-card-image responsive-image"
-        src="{% static 'images/interactive-sports-VYTQNnaboUA-unsplash.webp' %}"
+        src="{{ offer.thumbnail.url }}"
       />
     </div>
     <div
       class="cart-item-content flex flex-column justify-content-space-between"
     >
       <div class="cart-item-description">
-        <h2 class="lato lato-bold text-lg-xl">Nom de l'offre</h2>
-        <p class="lato lato-regular text-base">Nombre de places</p>
-        <p class="lato lato-regular text-base">Prix de l'offre</p>
+        <h2 class="lato lato-bold text-lg-xl">
+          Nom de l'offre : {{ offer.name }}
+        </h2>
+        <p class="lato lato-regular text-base">
+          Nombre de places : {{ offer.seats }}
+        </p>
+        <p class="lato lato-regular text-base">Prix : {{ offer.price }}€</p>
       </div>
       <div class="cart-item-delete">
         <p class="lato lato-bold text-base">Supprimer</p>
       </div>
     </div>
   </article>
-  <article class="cart-item border-top flex padding-top">
-    <div class="cart-item-image">
-      <img
-        alt="Image de l'offre"
-        class="aspect-square border-primary full-width offer-card-image responsive-image"
-        src="{% static 'images/interactive-sports-VYTQNnaboUA-unsplash.webp' %}"
-      />
-    </div>
-    <div
-      class="cart-item-content flex flex-column justify-content-space-between"
-    >
-      <div class="cart-item-description">
-        <h2 class="lato lato-bold text-lg-xl">Nom de l'offre</h2>
-        <p class="lato lato-regular text-base">Nombre de places</p>
-        <p class="lato lato-regular text-base">Prix de l'offre</p>
-      </div>
-      <div class="cart-item-delete">
-        <p class="lato lato-bold text-base">Supprimer</p>
-      </div>
-    </div>
-  </article>
-  <div class="border-top cart-summary flex flex-column padding-top">
+  {% endwith %} {% endfor %}
+
+  <!-- <div class="border-top cart-summary flex flex-column padding-top">
     <div>
       <p>
         <strong> Nombre d'articles : </strong>
@@ -71,6 +57,6 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
       </button>
     </div>
   </div>
+</div> -->
 </div>
-
 {% endblock content %}
