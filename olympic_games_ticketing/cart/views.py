@@ -36,3 +36,19 @@ def add_offer_to_cart(
         cart_quantity = cart.__len__()
         response = JsonResponse({"quantity": cart_quantity})
         return response
+
+
+@login_required
+def remove_offer_from_cart(request):
+    """
+    Remove an offer from the shopping cart.
+
+    Handles POST requests to remove a single offer from the cart.
+    """
+    cart = Cart(request)
+
+    if request.POST.get("action") == "post":
+        offer_id = int(request.POST.get("offer_id"))
+        cart.delete_offer(offer=offer_id)
+        response = JsonResponse({"Deleted": True})
+        return response
