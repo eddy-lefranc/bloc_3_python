@@ -31,17 +31,10 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
     </div>
   </article>
   {% endwith %} {% endfor %}
-
-  <!-- <div class="border-top cart-summary flex flex-column padding-top">
+  <div class="border-top cart-summary flex flex-column padding-top">
     <div>
-      <p>
-        <strong> Nombre d'articles : </strong>
-        N
-      </p>
-      <p>
-        <strong> Prix total : </strong>
-        €
-      </p>
+      <p><strong> Nombre d'articles :</strong> {{ cart|length }}</p>
+      <p><strong> Prix total :</strong> {{ cart.get_total_price }} €</p>
     </div>
     <div>
       <button
@@ -57,6 +50,5 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
       </button>
     </div>
   </div>
-</div> -->
 </div>
 {% endblock content %}
