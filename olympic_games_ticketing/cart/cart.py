@@ -34,6 +34,18 @@ class Cart:
                 "quantity": 1,
             }
 
+        self.save()
+
+    def remove_offer(self, offer):
+        """Remove an offer from the cart."""
+        offer_id = str(offer.id)
+
+        if offer_id in self.cart:
+            del self.cart[offer_id]
+            self.save()
+
+    def save(self):
+        """Mark the session as modified to ensure Django persists changes."""
         self.session.modified = True
 
     def __iter__(self):
