@@ -5,7 +5,10 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
 <div class="wrapper">
   <h1 class="lato lato-bold text-align-center text-xl">Votre panier</h1>
   {% for item in cart %} {% with offer=item.offer %}
-  <article class="cart-item border-top flex padding-top">
+  <article
+    class="cart-item border-top flex padding-top"
+    data-index="{{ offer.id }}"
+  >
     <div class="cart-item-image">
       <img
         alt="Image de l'offre"
@@ -17,16 +20,25 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
       class="cart-item-content flex flex-column justify-content-space-between"
     >
       <div class="cart-item-description">
-        <h2 class="lato lato-bold text-lg-xl">
-          Nom de l'offre : {{ offer.name }}
-        </h2>
+        <h2 class="lato lato-bold text-lg-xl">{{ offer.name }}</h2>
         <p class="lato lato-regular text-base">
           Nombre de places : {{ offer.seats }}
         </p>
         <p class="lato lato-regular text-base">Prix : {{ offer.price }}€</p>
       </div>
       <div class="cart-item-delete">
-        <p class="lato lato-bold text-base">Supprimer</p>
+        <button
+          class="align-items-center background-primary border-primary button delete-button flex lato lato-bold margin-bottom-lg text-base"
+          data-index="{{ offer.id }}"
+          type="button"
+        >
+          <img
+            src="{% static 'icons/delete.png' %}"
+            alt="Icône représentant la suppression d'une offre."
+            class="button-image"
+          />
+          Supprimer
+        </button>
       </div>
     </div>
   </article>
@@ -51,4 +63,26 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
     </div>
   </div>
 </div>
-{% endblock content %}
+{% endblock content %} {% block additional_js %}
+<script>
+  $(document).on("click", ".delete-button", function (e) {
+    e.preventDefault();
+    var offerid = $(this).data("index");
+    $.ajax({
+      type: "POST",
+      url: '{% url "cart-delete" %}',
+      data: {
+        offer_id: $(this).data("index"),
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        action: "post",
+      },
+      success: function (json) {
+        $('.cart-item[data-index="' + offerid + '"]').remove();
+      },
+      error: function (xhr, errmsg, err) {
+        console.error("Erreur lors de la suppression.");
+      },
+    });
+  });
+</script>
+{% endblock additional_js %}
