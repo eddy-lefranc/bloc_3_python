@@ -38,7 +38,7 @@ class Cart:
 
     def remove_offer(self, offer):
         """Remove an offer from the cart."""
-        offer_id = str(offer.id)
+        offer_id = str(offer)
 
         if offer_id in self.cart:
             del self.cart[offer_id]
