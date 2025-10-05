@@ -45,8 +45,14 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
   {% endwith %} {% endfor %}
   <div class="border-top cart-summary flex flex-column padding-top">
     <div>
-      <p><strong> Nombre d'articles :</strong> {{ cart|length }}</p>
-      <p><strong> Prix total :</strong> {{ cart.get_total_price }} €</p>
+      <p>
+        <strong> Nombre d'articles :</strong>
+        <span id="cart-quantity-summary">{{ cart|length }}</span>
+      </p>
+      <p>
+        <strong> Prix total :</strong>
+        <span id="cart-total">{{ cart.get_total_price }}</span> €
+      </p>
     </div>
     <div>
       <button
@@ -78,6 +84,9 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
       },
       success: function (json) {
         $('.cart-item[data-index="' + offerid + '"]').remove();
+        $("#cart-quantity-header").text(json.quantity);
+        $("#cart-quantity-summary").text(json.quantity);
+        $("#cart-total").text(json.total_price);
       },
       error: function (xhr, errmsg, err) {
         console.error("Erreur lors de la suppression.");
