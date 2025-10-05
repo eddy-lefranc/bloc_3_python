@@ -50,5 +50,9 @@ def remove_offer_from_cart(request):
     if request.POST.get("action") == "post":
         offer_id = int(request.POST.get("offer_id"))
         cart.remove_offer(offer=offer_id)
-        response = JsonResponse({"Deleted": True})
+        cart_quantity = cart.__len__()
+        cart_total = cart.get_total_price()
+        response = JsonResponse(
+            {"Deleted": True, "quantity": cart_quantity, "total_price": cart_total}
+        )
         return response
