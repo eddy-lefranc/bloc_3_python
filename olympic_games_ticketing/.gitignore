@@ -4,6 +4,7 @@ accounts/__pycache__/
 accounts/migrations/__pycache__/
 accounts/tests/__pycache__/
 cart/__pycache__/
+cart/tests/__pycache__/
 cart/migrations/__pycache__/
 media
 olympic_games_ticketing/__pycache__/
