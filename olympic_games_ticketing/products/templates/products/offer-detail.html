@@ -13,19 +13,17 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
     class="aspect-square border-primary offer-image responsive-image"
   />
   <div>
-    <h2 class="lato lato-bold text-lg-xl"><u>Caractéristiques :</u></h2>
-    <p class="lato lato-regular text-base">
-      <strong>Nom de l'offre :</strong> {{ offer.name }}
-    </p>
+    <h2 class="lato lato-bold text-align-center text-lg-xl">
+      Offre {{ offer.name }}
+    </h2>
     <p class="lato lato-regular text-base">
       <strong>Nombre de places :</strong> {{ offer.seats }}
     </p>
     <p class="lato lato-regular text-base">
       <strong>Prix :</strong> {{ offer.price }}€
     </p>
-    <h2 class="lato lato-bold text-lg-xl"><u>Description :</u></h2>
     <p class="lato lato-regular paragraph-appearance text-base">
-      {{ offer.description }}
+      <strong>Description :</strong> {{ offer.description }}€
     </p>
   </div>
   <div class="flex justify-content-center">
