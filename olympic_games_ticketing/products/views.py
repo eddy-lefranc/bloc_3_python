@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 
 from products.models import Offer
@@ -16,9 +17,10 @@ def offers_list_page(request):
     return render(request, "products/offers-list.html", context)
 
 
+@login_required
 def offer_detail_page(request, slug):
     """
-    Renders the offer detail page.
+    Renders the offer detail page for authenticated users.
 
     This view displays the details of a single offer identified by its slug.
     """
