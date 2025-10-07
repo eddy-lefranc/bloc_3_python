@@ -1,3 +1,4 @@
+from accounts.models import User
 from django.test import TestCase
 from django.urls import reverse
 
@@ -67,6 +68,12 @@ class TestOfferDetailPageView(TestCase):
         """
         Create a sample offer and set up the offer detail page url for reuse in tests.
         """
+        User.objects.create_user(
+            email="johndoe@gmail.com",
+            first_name="John",
+            last_name="Doe",
+            password="paris2024",
+        )
         cls.offer = Offer.objects.create(
             name="Solo",
             slug="solo",
@@ -76,6 +83,9 @@ class TestOfferDetailPageView(TestCase):
             is_active=True,
         )
         cls.url = reverse("offer", kwargs={"slug": cls.offer.slug})
+
+    def setUp(self):
+        self.client.login(email="johndoe@gmail.com", password="paris2024")
 
     def test_offer_detail_page_view_returns_status_200(self):
         """
