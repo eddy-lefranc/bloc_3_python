@@ -21,6 +21,19 @@ class TestCartSummaryPageView(TestCase):
             last_name="Doe",
             password="paris2024",
         )
+        fake_image = SimpleUploadedFile(
+            "test.jpg", b"file_content", content_type="image/jpeg"
+        )
+        Offer.objects.create(
+            name="Solo",
+            slug="solo",
+            thumbnail=fake_image,
+            description="A single seat offer.",
+            seats=1,
+            price=25,
+            is_active=True,
+        )
+        cls.cart_add_url = reverse("cart-add")
         cls.cart_summary_url = reverse("cart")
 
     def setUp(self):
@@ -28,6 +41,7 @@ class TestCartSummaryPageView(TestCase):
         Log in the test client before each test to simulate an authenticated session.
         """
         self.client.login(email="johndoe@gmail.com", password="paris2024")
+        self.client.post(self.cart_add_url, {"offer_id": 1, "action": "post"}, xhr=True)
 
     def test_cart_summary_requires_login(self):
         """
@@ -66,6 +80,36 @@ class TestCartSummaryPageView(TestCase):
         """
         response = self.client.get(self.cart_summary_url)
         self.assertIsInstance(response.context["cart"], Cart)
+
+    def test_cart_summary_page_get_contains_offer_id(self):
+        """Test that the cart summary page contains the offer id."""
+        response = self.client.get(self.cart_summary_url)
+        self.assertContains(response, 'data-index="1"')
+
+    def test_cart_summary_page_get_contains_offer_name(self):
+        """Test that the cart summary page contains the offer name."""
+        response = self.client.get(self.cart_summary_url)
+        self.assertContains(response, "Solo")
+
+    def test_cart_summary_page_get_contains_offer_seats(self):
+        """Test that the cart summary page contains the offer's number of seats."""
+        response = self.client.get(self.cart_summary_url)
+        self.assertContains(response, "Nombre de places : 1")
+
+    def test_cart_summary_page_get_contains_offer_price(self):
+        """Test that the cart summary page contains the offer's price."""
+        response = self.client.get(self.cart_summary_url)
+        self.assertContains(response, "Prix : 25")
+
+    def test_cart_summary_page_get_contains_cart_quantity(self):
+        """Test that the cart summary page contains the cart's quantity."""
+        response = self.client.get(self.cart_summary_url)
+        self.assertContains(response, '<span id="cart-quantity-summary">1</span>')
+
+    def test_cart_summary_page_get_contains_cart_price(self):
+        """Test that the cart summary page contains the cart's price."""
+        response = self.client.get(self.cart_summary_url)
+        self.assertContains(response, '<span id="cart-total">25,00</span>')
 
 
 class TestAddOfferToCartView(TestCase):
