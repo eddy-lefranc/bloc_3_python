@@ -6,7 +6,11 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
 {% endblock additional_css %}
 <!--prettier-ignore-->
 {% block content %}
-<article class="flex flex-column offer wrapper">
+<article
+  class="flex flex-column offer wrapper"
+  data-add-to-cart-url="{% url 'cart-add' %}"
+  data-csrf-token="{{ csrf_token }}"
+>
   <img
     src="{{ offer.get_thumbnail_url }}"
     alt="{{ offer.name }}"
@@ -45,25 +49,5 @@ Jeux Olympiques - Voir l'offre {% endblock title %}
 {% endblock content %}
 <!--prettier-ignore-->
 {% block additional_js %}
-<script>
-  $(document).on("click", "#add-to-cart", function (e) {
-    e.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: '{% url "cart-add" %}',
-      data: {
-        offer_id: $("#add-to-cart").val(),
-        csrfmiddlewaretoken: "{{ csrf_token }}",
-        action: "post",
-      },
-      success: function (json) {
-        alert("Offre ajoutée au panier !");
-        $("#cart-quantity-header").text(json.quantity);
-      },
-      error: function (xhr, errmsg, err) {
-        console.error("Erreur lors de l'ajout au panier");
-      },
-    });
-  });
-</script>
+<script src="{% static 'js/offer-detail.js' %}"></script>
 {% endblock additional_js %}
