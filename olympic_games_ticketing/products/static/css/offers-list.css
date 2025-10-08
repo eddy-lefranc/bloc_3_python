@@ -1,0 +1,9 @@
+.offers-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, 250px);
+}
+
+.offer-card-image {
+  border-bottom: 1.5px solid var(--black);
+}

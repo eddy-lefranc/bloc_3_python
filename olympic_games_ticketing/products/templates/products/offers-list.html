@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Billetterie des
+Jeux Olympiques - Liste des offres {% endblock title %}
+<!--prettier-ignore-->
+{% block additional_css %}
+<link rel="stylesheet" href="{% static 'css/offers-list.css' %}" />
+{% endblock additional_css %} {% block content %}
+<div class="wrapper">
+  <h1 class="lato lato-bold text-align-center text-xl">
+    Les offres de la billetterie des Jeux Olympiques
+  </h1>
+  <!--prettier-ignore-->
+  <section class="full-width justify-content-center offers-container">
+    {% if offers %}
+      {% for offer in offers %}
+        {% include 'products/includes/offer-card.html' with offer=offer %}
+      {% endfor %}
+    {% else %}
+      <p class="lato lato-regular paragraph-appearance text-base">Aucune offre n'est disponible pour le moment.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock content %}
