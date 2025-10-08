@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Billetterie des
+Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
+<link rel="stylesheet" href="{% static 'css/cart-summary.css' %}" />
+{% endblock additional_css %} {% block content %}
+<div
+  class="wrapper"
+  data-delete-url="{% url 'cart-delete' %}"
+  data-csrf-token="{{ csrf_token }}"
+  id="cart-wrapper"
+>
+  <h1 class="lato lato-bold text-align-center text-xl">Votre panier</h1>
+  {% for item in cart %} {% with offer=item.offer %}
+  <article
+    class="cart-item border-top flex padding-top"
+    data-index="{{ offer.id }}"
+  >
+    <div class="cart-item-image">
+      <img
+        alt="Image de l'offre"
+        class="aspect-square border-primary full-width offer-card-image responsive-image"
+        src="{{ offer.thumbnail.url }}"
+      />
+    </div>
+    <div
+      class="cart-item-content flex flex-column justify-content-space-between"
+    >
+      <div class="cart-item-description">
+        <h2 class="lato lato-bold text-lg-xl">{{ offer.name }}</h2>
+        <p class="lato lato-regular text-base">
+          Nombre de places : {{ offer.seats }}
+        </p>
+        <p class="lato lato-regular text-base">Prix : {{ offer.price }}€</p>
+      </div>
+      <div class="cart-item-delete">
+        <button
+          class="align-items-center background-primary border-primary button delete-button flex lato lato-bold margin-bottom-lg text-base"
+          data-index="{{ offer.id }}"
+          type="button"
+        >
+          <img
+            src="{% static 'icons/delete.png' %}"
+            alt="Icône représentant la suppression d'une offre."
+            class="button-image"
+          />
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </article>
+  {% endwith %} {% endfor %}
+  <div class="border-top cart-summary flex flex-column padding-top">
+    <div>
+      <p>
+        <strong> Nombre d'articles :</strong>
+        <span id="cart-quantity-summary">{{ cart|length }}</span>
+      </p>
+      <p>
+        <strong> Prix total :</strong>
+        <span id="cart-total">{{ cart.get_total_price }}</span> €
+      </p>
+    </div>
+    <div>
+      <button
+        class="align-items-center background-primary border-primary button flex lato lato-bold margin-bottom-lg text-base"
+        type="button"
+      >
+        <img
+          src="{% static 'icons/payment-card.png' %}"
+          alt="Icône représentant une carte de paiement."
+          class="button-image"
+        />
+        Commander
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock content %} {% block additional_js %}
+<script src="{% static 'js/cart-summary.js' %}"></script>
+{% endblock additional_js %}

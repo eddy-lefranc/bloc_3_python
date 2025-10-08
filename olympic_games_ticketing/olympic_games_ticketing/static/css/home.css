@@ -5,17 +5,12 @@
     url("../images/hero.webp");
   background-position: center;
   background-size: cover;
-  justify-content: center;
   min-height: 90vh;
 }
 
 .hero-subtitle {
   color: var(--whitesmoke);
   padding: 8rem;
-}
-
-.hero-link {
-  margin-bottom: 1.875rem;
 }
 
 /* === MAIN CONTAINER === */
@@ -29,15 +24,6 @@
 
 .homepage-card {
   width: 30%;
-}
-
-.homepage-card-image {
-  aspect-ratio: 1 / 1;
-  max-width: 100%;
-}
-
-.homepage-card-text {
-  width: 100%;
 }
 
 @media screen and (max-width: 650px) {

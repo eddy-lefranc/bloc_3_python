@@ -1,6 +1,6 @@
 {% load static %}
 
-<form method="post" class="flex flex-align-center flex-column">
+<form method="post" class="align-items-center flex flex-column">
   {% csrf_token %}
   <table class="form-table">
     {% for field in form %}
@@ -17,7 +17,7 @@
   </table>
   <button
     type="submit"
-    class="background-primary border-primary button flex flex-align-center lato lato-bold text-base"
+    class="align-items-center background-primary border-primary button flex lato lato-bold text-base"
   >
     <img
       src="{% static button_icon %}"

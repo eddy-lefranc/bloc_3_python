@@ -1,0 +1,22 @@
+.offer {
+  margin-top: 1.563rem;
+  max-width: 50%;
+}
+
+.offer-image {
+  border-radius: 15px;
+}
+
+@media screen and (max-width: 1024px) {
+  .offer {
+    max-width: 75%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .offer {
+    /* haut | droit | bas | gauche */
+    margin: 1.563rem 1.25rem 0 1.25rem;
+    max-width: 100%;
+  }
+}

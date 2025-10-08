@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Billetterie des
+Jeux Olympiques - Voir l'offre {% endblock title %}
+<!--prettier-ignore-->
+{% block additional_css %}
+<link rel="stylesheet" href="{% static 'css/offer-detail.css' %}" />
+{% endblock additional_css %}
+<!--prettier-ignore-->
+{% block content %}
+<article
+  class="flex flex-column offer wrapper"
+  data-add-to-cart-url="{% url 'cart-add' %}"
+  data-csrf-token="{{ csrf_token }}"
+>
+  <img
+    src="{{ offer.get_thumbnail_url }}"
+    alt="{{ offer.name }}"
+    class="aspect-square border-primary offer-image responsive-image"
+  />
+  <div>
+    <h2 class="lato lato-bold text-align-center text-lg-xl">
+      Offre {{ offer.name }}
+    </h2>
+    <p class="lato lato-regular text-base">
+      <strong>Nombre de places :</strong> {{ offer.seats }}
+    </p>
+    <p class="lato lato-regular text-base">
+      <strong>Prix :</strong> {{ offer.price }}€
+    </p>
+    <p class="lato lato-regular paragraph-appearance text-base">
+      <strong>Description :</strong> {{ offer.description }}€
+    </p>
+  </div>
+  <div class="flex justify-content-center">
+    <button
+      class="align-items-center background-primary border-primary button flex lato lato-bold margin-bottom-lg text-base"
+      id="add-to-cart"
+      type="button"
+      value="{{ offer.id }}"
+    >
+      <img
+        src="{% static 'icons/shopping-cart.png' %}"
+        alt="Icône représentant un panier d'achat."
+        class="button-image"
+      />
+      Ajouter au panier
+    </button>
+  </div>
+</article>
+{% endblock content %}
+<!--prettier-ignore-->
+{% block additional_js %}
+<script src="{% static 'js/offer-detail.js' %}"></script>
+{% endblock additional_js %}
