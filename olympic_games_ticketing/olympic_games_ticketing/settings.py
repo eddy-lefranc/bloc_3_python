@@ -158,7 +158,7 @@ if not DEBUG:
     }
 else:
     STORAGES["staticfiles"] = {
-        "BACKEND": "django.core.files.storage.StaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     }
 
 # AWS S3 Storage (Media)
@@ -177,18 +177,23 @@ if USE_S3:
     STORAGES["default"] = {
         "BACKEND": "olympic_games_ticketing.storage_backends.PublicMediaStorage",
     }
-
     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
 else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
+    STORAGES["default"] = {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": MEDIA_ROOT,
+        },
+    }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Temporaire pour debug en production
+# Temporaire pour debug
 
 LOGGING = {
     "version": 1,
