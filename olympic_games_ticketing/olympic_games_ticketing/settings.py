@@ -188,7 +188,7 @@ else:
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Temporaire pour debug en production
+# Temporaire pour debug
 
 LOGGING = {
     "version": 1,
