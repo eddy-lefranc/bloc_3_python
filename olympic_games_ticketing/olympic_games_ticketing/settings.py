@@ -178,6 +178,10 @@ if USE_S3:
         "BACKEND": "olympic_games_ticketing.storage_backends.PublicMediaStorage",
     }
     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
+    AWS_DEFAULT_ACL = None
+    AWS_S3_OBJECT_PARAMETERS = {
+        "CacheControl": "max-age=86400",
+    }
 else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
