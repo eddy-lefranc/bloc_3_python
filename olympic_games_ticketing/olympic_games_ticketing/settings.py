@@ -93,8 +93,6 @@ WSGI_APPLICATION = "olympic_games_ticketing.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Update database configuration from $DATABASE_URL environment variable (if defined)
-
 if "DATABASE_URL" in os.environ:
     DATABASES = {
         "default": dj_database_url.config(
@@ -140,6 +138,29 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
+# Storages configuration
+
+STORAGES = {}
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "olympic_games_ticketing/static"]
+
+# Static file serving with WhiteNoise
+# https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
+
+if not DEBUG:
+    STORAGES["staticfiles"] = {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    }
+else:
+    STORAGES["staticfiles"] = {
+        "BACKEND": "django.core.files.storage.StaticFilesStorage",
+    }
+
 # AWS S3 Storage (Media)
 
 USE_S3 = os.environ.get("USE_S3", "") != "False"
@@ -151,43 +172,23 @@ if USE_S3:
     AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "eu-west-3")
     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
     AWS_S3_FILE_OVERWRITE = False
-    AWS_LOCATION = "media"
     AWS_QUERYSTRING_AUTH = False
-    DEFAULT_FILE_STORAGE = "olympic_games_ticketing.storage_backends.PublicMediaStorage"
-    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+    AWS_LOCATION = "media"
+    STORAGES["default"] = {
+        "BACKEND": "olympic_games_ticketing.storage_backends.PublicMediaStorage",
+    }
+
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
 else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# The URL to use when referring to static files (where they will be served from).
-STATIC_URL = "/static/"
-
-STATICFILES_DIRS = [
-    BASE_DIR / "olympic_games_ticketing/static",
-]
-
-# Static file serving.
-# https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
-
-if not DEBUG:
-    STORAGES = {
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# TEMPORAIRE POUR DEBUG
+# Temporaire pour debug en production
 
 LOGGING = {
     "version": 1,
