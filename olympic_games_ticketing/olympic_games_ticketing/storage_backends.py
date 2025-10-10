@@ -6,9 +6,9 @@ class PublicMediaStorage(S3Boto3Storage):
     S3 storage backend for public media files.
 
     Stores uploaded files in the 'media/' prefix of the S3 bucket,
-    with public read access and no overwriting of existing files.
+    with no ACLs and no overwriting of existing files.
     """
 
     location = "media"
-    default_acl = "public-read"
+    default_acl = None
     file_overwrite = False
