@@ -9,7 +9,15 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
   id="cart-wrapper"
 >
   <h1 class="lato lato-bold text-align-center text-xl">Votre panier</h1>
-  {% for item in cart %} {% with offer=item.offer %}
+  {% if messages %}
+  <div>
+    {% for message in messages %}
+    <p class="error-message lato lato-bold text-align-center text-sm">
+      {{ message }}
+    </p>
+    {% endfor %}
+  </div>
+  {% endif %} {% for item in cart %} {% with offer=item.offer %}
   <article
     class="cart-item border-top flex padding-top"
     data-index="{{ offer.id }}"
