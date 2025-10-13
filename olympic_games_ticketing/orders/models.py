@@ -89,7 +89,7 @@ class OrderItem(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Offre associée",
     )
-    offer_name = models.CharField(
+    name = models.CharField(
         max_length=255,
         verbose_name="Nom de l'offre",
     )
@@ -122,7 +122,7 @@ class OrderItem(models.Model):
 
         Format: <quantity> x <offer_name> (Commande #<order_id>).
         """
-        return f"{self.quantity} x {self.offer_name} (Commande #{self.order.id})"
+        return f"{self.quantity} x {self.name} (Commande #{self.order.id})"
 
     def save(self, *args, **kwargs):
         """
