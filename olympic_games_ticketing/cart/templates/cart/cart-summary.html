@@ -60,17 +60,20 @@ Jeux Olympiques - Panier {% endblock title %} {% block additional_css %}
       </p>
     </div>
     <div>
-      <button
-        class="align-items-center background-primary border-primary button flex lato lato-bold margin-bottom-lg text-base"
-        type="button"
-      >
-        <img
-          src="{% static 'icons/payment-card.png' %}"
-          alt="Icône représentant une carte de paiement."
-          class="button-image"
-        />
-        Commander
-      </button>
+      <form action="{% url 'orders:create' %}" method="post">
+        {% csrf_token %}
+        <button
+          class="align-items-center background-primary border-primary button flex lato lato-bold margin-bottom-lg text-base"
+          type="submit"
+        >
+          <img
+            src="{% static 'icons/payment-card.png' %}"
+            alt="Icône représentant une carte de paiement."
+            class="button-image"
+          />
+          Commander
+        </button>
+      </form>
     </div>
   </div>
 </div>
