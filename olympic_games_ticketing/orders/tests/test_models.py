@@ -12,14 +12,17 @@ class TestOrderModel(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        """Set up a test user and order for all tests."""
+        """Set up a test user for all tests."""
         cls.user = User.objects.create_user(
             email="johndoe@gmail.com",
             first_name="John",
             last_name="Doe",
             password="paris2024",
         )
-        cls.order = Order.objects.create(user=cls.user, total=75)
+
+    def setUp(self):
+        """Set up a test an order for all tests."""
+        self.order = Order.objects.create(user=self.user, total=75)
 
     def test_user_field_relationship(self):
         """
@@ -128,6 +131,30 @@ class TestOrderModel(TestCase):
             "is_confirmed"
         ).verbose_name
         self.assertEqual(is_confirmed_verbose_name, "Est confirmé")
+
+    def test_order_model_ordering(self):
+        """Test that the Order model ordering option is correct."""
+        self.assertEqual(Order._meta.ordering, ["-updated_at"])
+
+    def test_order_model_verbose_name(self):
+        """Test that the Order model verbose_name is 'Commande'."""
+        self.assertEqual(Order._meta.verbose_name, "Commande")
+
+    def test_order_model_verbose_name_plural(self):
+        """Test that the Order model verbose_name_plural is 'Commandes'."""
+        self.assertEqual(Order._meta.verbose_name_plural, "Commandes")
+
+    def test_str_method_returns_confirmed_status(self):
+        """Test that the __str__ method returns expected_value if confirmed."""
+        expected_value = f"Commande #{self.order.id} - {self.user} - Confirmée - 75 €"
+        self.assertEqual(str(self.order), expected_value)
+
+    def test_str_method_returns_cancelled_status(self):
+        """Test that the __str__ method returns expected_value if not confirmed."""
+        self.order.is_confirmed = False
+        self.order.save()
+        expected_value = f"Commande #{self.order.id} - {self.user} - Annulée - 75 €"
+        self.assertEqual(str(self.order), expected_value)
 
 
 class TestOrderItemModel(TestCase):
