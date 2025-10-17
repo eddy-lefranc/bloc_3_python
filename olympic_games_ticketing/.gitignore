@@ -14,3 +14,5 @@ orders/migrations/__pycache__/
 products/__pycache__/
 products/migrations/__pycache__/
 products/tests/__pycache__/
+tickets/__pycache__/
+tickets/migrations/__pycache__/
