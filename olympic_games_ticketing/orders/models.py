@@ -40,7 +40,7 @@ class Order(models.Model):
         editable=False,
     )
     is_confirmed = models.BooleanField(
-        default=False,
+        default=True,
         verbose_name="Est confirmé",
     )
 
@@ -63,10 +63,10 @@ class Order(models.Model):
         Return a readable representation of the order
         for display purposes (e.g., in the admin interface).
 
-        Format: Commande #<id> - Utilisateur #<user> - <status> - <total> €.
+        Format: Commande #<id> - <user> - <status> - <total> €.
         """
-        status = "Confirmée" if self.is_confirmed else "Paiement en attente"
-        return f"Commande #{self.id} - Utilisateur #{self.user} - {status} - {self.total} €"
+        status = "Confirmée" if self.is_confirmed else "Annulée"
+        return f"Commande #{self.id} - {self.user} - {status} - {self.total} €"
 
 
 class OrderItem(models.Model):
