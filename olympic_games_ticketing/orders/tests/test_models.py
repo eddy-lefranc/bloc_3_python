@@ -163,7 +163,7 @@ class TestOrderItemModel(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        """Set up a test user for all tests."""
+        """Set up a user, order, offer and item for tests."""
         cls.user = User.objects.create_user(
             email="johndoe@gmail.com",
             first_name="John",
