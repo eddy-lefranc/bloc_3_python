@@ -38,7 +38,6 @@ class Ticket(models.Model):
     unique_suffix = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
-        verbose_name="Suffixe du billet",
     )
     final_key = models.CharField(
         max_length=200,
@@ -53,7 +52,6 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
         editable=False,
-        verbose_name="Date de création",
     )
 
     class Meta:
