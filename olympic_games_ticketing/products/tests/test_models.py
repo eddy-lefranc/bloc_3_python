@@ -212,10 +212,10 @@ class TestOfferModel(TestCase):
 
     def test_created_at_field_verbose_name(self):
         """Test that the created_at field verbose name is 'Date de création'."""
-        is_active_field_verbose_name = self.offer._meta.get_field(
+        created_at_field_verbose_name = self.offer._meta.get_field(
             "created_at"
         ).verbose_name
-        self.assertEqual(is_active_field_verbose_name, "Date de création")
+        self.assertEqual(created_at_field_verbose_name, "Date de création")
 
     def test_updated_at_field_auto_now_add(self):
         """Test that auto_now attribute is True for updated_at field."""

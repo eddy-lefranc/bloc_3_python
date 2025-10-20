@@ -9,6 +9,12 @@ cart/migrations/__pycache__/
 media
 olympic_games_ticketing/__pycache__/
 olympic_games_ticketing/tests/__pycache__/
+orders/__pycache__/
+orders/migrations/__pycache__/
+orders/tests/__pycache__/
 products/__pycache__/
 products/migrations/__pycache__/
 products/tests/__pycache__/
+tickets/__pycache__/
+tickets/migrations/__pycache__/
+tickets/tests/__pycache__/
