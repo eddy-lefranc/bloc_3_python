@@ -3,8 +3,9 @@ import uuid
 from accounts.models import User
 from django.db import models
 from django.test import TestCase
+from products.models import Offer
 
-from orders.models import Order
+from orders.models import Order, OrderItem
 
 
 class TestOrderModel(TestCase):
@@ -44,7 +45,7 @@ class TestOrderModel(TestCase):
         user_field = Order._meta.get_field("user")
         self.assertEqual(user_field.remote_field.related_name, "orders")
 
-    def test_first_name_field_verbose_name(self):
+    def test_user_field_verbose_name(self):
         """Test that the user field verbose name is correct."""
         user_field_verbose_name = Order._meta.get_field("user").verbose_name
         self.assertEqual(
@@ -159,3 +160,127 @@ class TestOrderModel(TestCase):
 
 class TestOrderItemModel(TestCase):
     """Tests for verifying the behavior of the OrderItem model."""
+
+    @classmethod
+    def setUpTestData(cls):
+        """Set up a test user for all tests."""
+        cls.user = User.objects.create_user(
+            email="johndoe@gmail.com",
+            first_name="John",
+            last_name="Doe",
+            password="paris2024",
+        )
+        cls.order = Order.objects.create(user=cls.user, total=75)
+        cls.offer = Offer.objects.create(name="Solo", price=25, sales=0)
+        cls.item = OrderItem.objects.create(
+            order=cls.order,
+            offer=cls.offer,
+            name=cls.offer.name,
+            price=cls.offer.price,
+            quantity=1,
+        )
+
+    def test_order_field_related_model(self):
+        """Ensure that order_field correctly references the Order model."""
+        order_field = OrderItem._meta.get_field("order")
+        self.assertEqual(order_field.related_model, Order)
+
+    def test_order_field_on_delete(self):
+        """
+        Ensure the on_delete behavior for OrderItem.order field is 'models.CASCADE'.
+        """
+        order_field = OrderItem._meta.get_field("order")
+        self.assertEqual(order_field.remote_field.on_delete, models.CASCADE)
+
+    def test_order_field_related_name(self):
+        """
+        Ensure the related_name on OrderItem.order field is 'items'.
+        """
+        order_field = OrderItem._meta.get_field("order")
+        self.assertEqual(order_field.remote_field.related_name, "items")
+
+    def test_order_field_verbose_name(self):
+        """Test that the order field verbose name is correct."""
+        order_field_verbose_name = OrderItem._meta.get_field("order").verbose_name
+        self.assertEqual(order_field_verbose_name, "Commande associée")
+
+    def test_offer_field_related_model(self):
+        """Ensure that offer_field correctly references the Offer model."""
+        offer_field = OrderItem._meta.get_field("offer")
+        self.assertEqual(offer_field.related_model, Offer)
+
+    def test_offer_field_related_name(self):
+        """
+        Ensure the related_name on OrderItem.offer field is 'order_items'.
+        """
+        offer_field = OrderItem._meta.get_field("offer")
+        self.assertEqual(offer_field.remote_field.related_name, "order_items")
+
+    def test_offer_field_on_delete(self):
+        """
+        Ensure the on_delete behavior for OrderItem.offer field is 'models.CASCADE'.
+        """
+        offer_field = OrderItem._meta.get_field("offer")
+        self.assertEqual(offer_field.remote_field.on_delete, models.CASCADE)
+
+    def test_offer_field_verbose_name(self):
+        """Test that the offer field verbose name is correct."""
+        offer_field_verbose_name = OrderItem._meta.get_field("offer").verbose_name
+        self.assertEqual(offer_field_verbose_name, "Offre associée")
+
+    def test_name_field_max_length(self):
+        """Test that the name field max_length is 255."""
+        name_field_max_length = OrderItem._meta.get_field("name").max_length
+        self.assertEqual(name_field_max_length, 255)
+
+    def test_name_field_verbose_name(self):
+        """Test that the name field verbose name is correct."""
+        name_field_verbose_name = OrderItem._meta.get_field("name").verbose_name
+        self.assertEqual(name_field_verbose_name, "Nom de l'offre")
+
+    def test_price_field_max_digits(self):
+        """Test that price field max digits has the expected value."""
+        price_field_max_digits = OrderItem._meta.get_field("price").max_digits
+        self.assertEqual(price_field_max_digits, 10)
+
+    def test_price_field_decimal_places(self):
+        """Test that price field decimal places has the expected value."""
+        price_field_decimal_places = OrderItem._meta.get_field("price").decimal_places
+        self.assertEqual(price_field_decimal_places, 2)
+
+    def test_price_field_verbose_name(self):
+        """Test that the price field verbose name is correct."""
+        price_field_verbose_name = OrderItem._meta.get_field("price").verbose_name
+        self.assertEqual(price_field_verbose_name, "Prix unitaire")
+
+    def test_quantity_field_verbose_name(self):
+        """Test that the quantity field verbose name is correct."""
+        quantity_field_verbose_name = OrderItem._meta.get_field("quantity").verbose_name
+        self.assertEqual(quantity_field_verbose_name, "Quantité")
+
+    def test_order_item_model_ordering(self):
+        """Test that the OrderItem model ordering option is correct."""
+        self.assertEqual(OrderItem._meta.ordering, ["order", "id"])
+
+    def test_order_item_model_verbose_name(self):
+        """Test that the OrderItem model verbose_name is correct."""
+        self.assertEqual(OrderItem._meta.verbose_name, "Article de commande")
+
+    def test_order_item_model_verbose_name_plural(self):
+        """Test that the OrderItem model verbose_name_plural is correct."""
+        self.assertEqual(OrderItem._meta.verbose_name_plural, "Articles de commande")
+
+    def test_str_method_returns_expected_format(self):
+        """Test that the __str__ method of OrderItem model returns expected_value."""
+        expected_value = (
+            f"{self.item.quantity} x {self.item.name} (Commande #{self.order.id})"
+        )
+        self.assertEqual(str(self.item), expected_value)
+
+    def test_offer_sales_incremented_on_order_item_creation(self):
+        """
+        Test that creating an OrderItem increments the related Offer sales field
+        from its initial value (0 in setUpTestData).
+        """
+        self.offer.refresh_from_db()
+        self.assertEqual(self.offer.sales, self.item.quantity)
