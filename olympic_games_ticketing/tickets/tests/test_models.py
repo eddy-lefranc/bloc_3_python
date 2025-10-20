@@ -135,3 +135,42 @@ class TestTicketModel(TestCase):
         """Test that created_at field is not editable."""
         created_at_field = self.ticket._meta.get_field("created_at")
         self.assertFalse(created_at_field.editable)
+
+    def test_ticket_model_ordering(self):
+        """Test that the Ticket model ordering option is correct."""
+        self.assertEqual(Ticket._meta.ordering, ["-created_at"])
+
+    def test_ticket_model_verbose_name(self):
+        """Test that the Ticket model verbose_name is 'Billet'."""
+        self.assertEqual(Ticket._meta.verbose_name, "Billet")
+
+    def test_ticket_model_verbose_name_plural(self):
+        """Test that the Order model verbose_name_plural is 'Billets'."""
+        self.assertEqual(Ticket._meta.verbose_name_plural, "Billets")
+
+    def test_save_method_generates_final_key(self):
+        """
+        Ensure that saving a Ticket without an existing final_key
+        automatically generates and assigns one.
+        """
+        ticket = Ticket(order=self.order, offer=self.offer)
+        self.assertFalse(ticket.final_key)
+        ticket.save()
+        self.assertTrue(ticket.final_key)
+
+    def test_generate_qr_code_method_filename(self):
+        """
+        Verify that generate_qr_code() saves the QR image
+        using the expected filename pattern.
+        """
+        self.ticket.generate_qr_code()
+        filename = self.ticket.qr_code.name
+        self.assertTrue(
+            filename.startswith(f"tickets/ticket_{self.order.id}_{self.offer.id}_")
+        )
+        self.assertTrue(filename.endswith(".png"))
+
+    def test_str_method_returns_expected_format(self):
+        """Test that the __str__ method of Ticket model returns expected_value."""
+        expected_value = f"Ticket #{self.ticket.id} - Offre : {self.offer.name} (Commande #{self.order.id})"
+        self.assertEqual(str(self.ticket), expected_value)
