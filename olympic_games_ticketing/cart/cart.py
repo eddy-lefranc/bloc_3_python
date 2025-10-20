@@ -76,3 +76,8 @@ class Cart:
         return sum(
             Decimal(item["price"]) * item["quantity"] for item in self.cart.values()
         )
+
+    def clear(self):
+        """Remove all items from the cart and clear the session data."""
+        self.session["session_key"] = {}
+        self.save()

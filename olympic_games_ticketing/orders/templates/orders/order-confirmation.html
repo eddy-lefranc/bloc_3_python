@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% load static %}
+<!--prettier-ignore-->
+{% block title %}Confirmation de commande{% endblock title %} {% block additional_css %}
+<link rel="stylesheet" href="{% static 'css/order-confirmation.css' %}" />
+{% endblock additional_css %}
+<!--prettier-ignore-->
+{% block content %}
+<div class="wrapper">
+  <div class="border-bottom">
+    <h1 class="lato lato-bold text-align-center text-xl">
+      Merci pour votre commande !
+    </h1>
+  </div>
+  <div class="border-bottom">
+    <p
+      class="lato lato-regular paragraph-appearance text-align-center text-base"
+    >
+      Votre commande a bien été enregistrée. Un récapitulatif vous sera envoyé
+      par e-mail dans les prochaines minutes.
+    </p>
+  </div>
+  <!-- prettier-ignore -->
+  {% if tickets_by_offer %}
+  <!-- prettier-ignore -->
+  {% for offer_name, tickets in tickets_by_offer.items %}
+  <div>
+    <h2 class="lato lato-bold text-align-center text-lg-xl">
+      <!--prettier-ignore-->
+      {% if tickets|length == 1 %} 
+        Votre billet pour l'offre {{ offer_name }}
+      {% else %} Vos billets pour l'offre {{ offer_name }}
+   {% endif %}
+    </h2>
+    <div class="flex flex-wrap justify-content-center">
+      {% for ticket in tickets %}
+      <div>
+        <img
+          src="{{ ticket.qr_code.url }}"
+          alt="QR Code pour {{ offer_name }}"
+        />
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <p>Aucun billet à afficher.</p>
+  {% endif %}
+</div>
+{% endblock %}
