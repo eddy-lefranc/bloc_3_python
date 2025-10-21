@@ -62,9 +62,7 @@ class Offer(models.Model):
         editable=False,
         verbose_name="Date de la dernière mise à jour",
     )
-    sales = models.PositiveIntegerField(
-        default=0, verbose_name="Nombre de ventes", editable=False
-    )
+    sales = models.PositiveIntegerField(default=0, verbose_name="Nombre de ventes")
 
     def __str__(self):
         """

@@ -246,11 +246,6 @@ class TestOfferModel(TestCase):
         sales_field_verbose_name = self.offer._meta.get_field("sales").verbose_name
         self.assertEqual(sales_field_verbose_name, "Nombre de ventes")
 
-    def test_sales_field_editable_attribute_is_false(self):
-        """Test that sales field is not editable."""
-        sales_field = self.offer._meta.get_field("updated_at")
-        self.assertFalse(sales_field.editable)
-
     def test_str_method_returns_offer_name(self):
         """Test that the __str__ method returns the name of the offer."""
         self.assertEqual(str(self.offer), "Solo")
