@@ -19,9 +19,10 @@ def order_create_view(request):
     - Redirects to the cart page with an error message if the cart is empty.
     - Within an atomic transaction:
         - Creates the Order for the current user with the cart's total price.
-        - Bulk-creates OrderItem instances for each cart entry.
-        - For each OrderItem, creates one Ticket per seat and calls
-          ticket.generate_qr_code() to render and save the QR code.
+        - For each item in the cart:
+            - Creates the corresponding OrderItem and increments the offer's sales count.
+            - Generates one or more Tickets depending on the offer's seat count.
+            - Calls `ticket.generate_qr_code()` to render and save each QR code.
         - Clears the cart and redirects to the order confirmation page.
     """
 
@@ -35,21 +36,16 @@ def order_create_view(request):
 
     with transaction.atomic():
         order = Order.objects.create(user=request.user, total=cart.get_total_price())
-        items_to_create = [
-            OrderItem(
+        for item in cart:
+            order_item = OrderItem.objects.create(
                 order=order,
                 offer=item["offer"],
                 name=item["name"],
                 price=item["price"],
                 quantity=item["quantity"],
             )
-            for item in cart
-        ]
-        OrderItem.objects.bulk_create(items_to_create)
-
-        for item in order.items.select_related("offer"):
-            for _ in range(item.offer.seats):
-                ticket = Ticket.objects.create(order=order, offer=item.offer)
+            for _ in range(order_item.offer.seats):
+                ticket = Ticket.objects.create(order=order, offer=order_item.offer)
                 ticket.generate_qr_code()
 
         cart.clear()
