@@ -29,7 +29,10 @@ class TestOrderCreateView(TestCase):
             price=25,
             is_active=True,
         )
+        cls.cart_summary_url = reverse("cart")
+        cls.cart_add_url = reverse("cart-add")
         cls.order_create_url = reverse("orders:create")
+        cls.order_confirmation_url = reverse("orders:confirmation")
 
     def setUp(self):
         """
@@ -51,7 +54,7 @@ class TestOrderCreateView(TestCase):
         when cart is empty.
         """
         response = self.client.post(self.order_create_url)
-        self.assertRedirects(response, reverse("cart"))
+        self.assertRedirects(response, self.cart_summary_url)
 
     def test_order_create_post_shows_message_when_cart_is_empty(self):
         """
@@ -59,8 +62,49 @@ class TestOrderCreateView(TestCase):
         when cart is empty and displays it.
         """
         self.client.post(self.order_create_url)
-        response = self.client.get(reverse("cart"))
+        response = self.client.get(self.cart_summary_url)
         self.assertContains(
             response,
             "Votre panier est vide. Veuillez ajouter au moins une offre avant de commander.",
+        )
+
+    def test_order_create_post_clears_cart_when_cart_is_filled(self):
+        """
+        Test that a POST request to the order create view clears the cart.
+        """
+        self.client.post(self.cart_add_url, {"offer_id": 1, "action": "post"}, xhr=True)
+        self.client.post(self.order_create_url)
+        response = self.client.get(self.order_confirmation_url)
+        self.assertContains(
+            response, 'Panier (<span id="cart-quantity-header">0</span>)'
+        )
+
+    def test_order_create_redirects_to_order_confirmation_when_cart_is_filled(self):
+        """
+        Test that a POST request to the order create view redirects to the
+        order confirmation when cart is filled.
+        """
+        self.client.post(self.cart_add_url, {"offer_id": 1, "action": "post"}, xhr=True)
+        response = self.client.post(self.order_create_url)
+        self.assertRedirects(response, self.order_confirmation_url)
+
+    def test_order_confirmation_get_contains_confirmation_heading(self):
+        """
+        Test that the order confirmation page contains the expected heading.
+        """
+        self.client.post(self.cart_add_url, {"offer_id": 1, "action": "post"}, xhr=True)
+        self.client.post(self.order_create_url)
+        response = self.client.get(self.order_confirmation_url)
+        self.assertContains(response, "Merci pour votre commande !")
+
+    def test_order_confirmation_get_contains_qr_code_image(self):
+        """
+        Test that the order confirmation page contains the QR code image.
+        """
+        self.client.post(self.cart_add_url, {"offer_id": 1, "action": "post"}, xhr=True)
+        self.client.post(self.order_create_url)
+        response = self.client.get(self.order_confirmation_url)
+        self.assertContains(
+            response,
+            "/media/tickets/ticket_1_1",
         )
