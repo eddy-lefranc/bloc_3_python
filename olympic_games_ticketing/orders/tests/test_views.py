@@ -4,6 +4,8 @@ from django.test import TestCase
 from django.urls import reverse
 from products.models import Offer
 
+from orders.models import Order
+
 
 class TestOrderCreateView(TestCase):
     """Tests for verifying the behavior of the order create view."""
@@ -108,3 +110,76 @@ class TestOrderCreateView(TestCase):
             response,
             "/media/tickets/ticket_1_1",
         )
+
+
+class TestOrderConfirmationView(TestCase):
+    """Tests for verifying the behavior of the order confirmation view."""
+
+    @classmethod
+    def setUpTestData(cls):
+        """Set up a test user, an offer and the URLs for reuse in tests."""
+        cls.user = User.objects.create_user(
+            email="johndoe@gmail.com",
+            first_name="John",
+            last_name="Doe",
+            password="paris2024",
+        )
+        fake_image = SimpleUploadedFile(
+            "test.jpg", b"file_content", content_type="image/jpeg"
+        )
+        Offer.objects.create(
+            name="Solo",
+            slug="solo",
+            thumbnail=fake_image,
+            description="A single seat offer.",
+            seats=1,
+            price=25,
+            is_active=True,
+        )
+        cls.cart_summary_url = reverse("cart")
+        cls.cart_add_url = reverse("cart-add")
+        cls.order_create_url = reverse("orders:create")
+        cls.order_confirmation_url = reverse("orders:confirmation")
+
+    def setUp(self):
+        """
+        Log in the test client before each test to simulate an authenticated session.
+        """
+        self.client.login(email="johndoe@gmail.com", password="paris2024")
+
+    def test_order_confirmation_view_uses_correct_template_when_no_order(self):
+        """Test that the order confirmation view renders the expected template
+        when there is no order."""
+        response = self.client.get(self.order_confirmation_url)
+        self.assertTemplateUsed(response, "orders/order-confirmation.html")
+
+    def test_order_context_is_set_to_none_when_no_order(self):
+        """
+        Test that order context is set to none when there is no order.
+        """
+        response = self.client.get(self.order_confirmation_url)
+        self.assertIsNone(response.context["order"])
+
+    def test_order_create_post_uses_correct_template(self):
+        """
+        Test that the order confirmation view renders the expected template.
+        """
+        self.client.post(self.cart_add_url, {"offer_id": 1, "action": "post"}, xhr=True)
+        self.client.post(self.order_create_url)
+        response = self.client.get(self.order_confirmation_url)
+        self.assertTemplateUsed(response, "orders/order-confirmation.html")
+
+    def test_order_confirmation_view_context_contains_order(self):
+        """Test that the order confirmation view context includes the created order."""
+        self.client.post(self.cart_add_url, {"offer_id": 1, "action": "post"}, xhr=True)
+        self.client.post(self.order_create_url)
+        order = Order.objects.get(user=self.user)
+        response = self.client.get(self.order_confirmation_url)
+        self.assertEqual(response.context["order"], order)
+
+    def test_order_confirmation_view_context_contains_solo_ticket(self):
+        """Test that the order confirmation view context the Solo ticket."""
+        self.client.post(self.cart_add_url, {"offer_id": 1, "action": "post"}, xhr=True)
+        self.client.post(self.order_create_url)
+        response = self.client.get(self.order_confirmation_url)
+        self.assertIn("Solo", response.context["tickets_by_offer"])
