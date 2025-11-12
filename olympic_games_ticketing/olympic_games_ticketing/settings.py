@@ -109,6 +109,26 @@ else:
         }
     }
 
+# Caches
+
+if "REDIS_URL" in os.environ:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": os.environ["REDIS_URL"],
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
+        }
+    }
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
+    }
+
+
 # Customizing authentication
 
 AUTH_USER_MODEL = "accounts.User"
