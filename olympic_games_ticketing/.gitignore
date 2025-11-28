@@ -7,6 +7,7 @@ cart/__pycache__/
 cart/tests/__pycache__/
 cart/migrations/__pycache__/
 media
+newsletter/__pycache__/
 olympic_games_ticketing/__pycache__/
 olympic_games_ticketing/tests/__pycache__/
 orders/__pycache__/
