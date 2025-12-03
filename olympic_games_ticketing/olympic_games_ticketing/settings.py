@@ -219,7 +219,7 @@ else:
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Disable ratelimit automatically during unit tests
+# Disable ratelimit automatically during tests
 
 if "test" in sys.argv:
     RATELIMIT_ENABLE = False
