@@ -41,7 +41,7 @@ def signup_confirmation_page(request):
 
 
 @redirect_to_home_if_authenticated
-@ratelimit(key="ip", rate="5/m", block=True)
+@ratelimit(key="ip", rate="5/m", block=True, method="POST")
 def login_page(request):
     """
     Handles user login. Displays the login form and processes form submission.
