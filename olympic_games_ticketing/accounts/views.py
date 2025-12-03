@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
+from django_ratelimit.decorators import ratelimit
 
 from accounts.decorators import redirect_to_home_if_authenticated
 from accounts.forms import LoginForm, SignupForm
@@ -40,9 +41,11 @@ def signup_confirmation_page(request):
 
 
 @redirect_to_home_if_authenticated
+@ratelimit(key="ip", rate="5/m", block=True, method="POST")
 def login_page(request):
     """
     Handles user login. Displays the login form and processes form submission.
+    Limited to 5 POST requests per minute and IP address.
 
     Supports POST requests to handle form submission. Other request methods (e.g., GET)
     simply display an empty login form.
